@@ -1,0 +1,34 @@
+[
+  {
+    "candidate": {
+      "fullName": "Aisha Khan",
+      "emails": ["aisha.khan@example.com"],
+      "phoneNumbers": ["+14155552671"]
+    },
+    "employment": {
+      "current": { "employer": "Stripe", "role": "Senior Software Engineer" }
+    },
+    "experience": [
+      {
+        "employer": "Stripe",
+        "role": "Senior Software Engineer",
+        "startDate": "2021-03",
+        "endDate": "Present",
+        "summary": "Payments infrastructure for the API platform."
+      },
+      {
+        "employer": "Shopify",
+        "role": "Software Engineer",
+        "startDate": "2018",
+        "endDate": "2021-02",
+        "summary": "Storefront rendering."
+      }
+    ],
+    "education": [
+      { "school": "MIT", "degree": "BS", "fieldOfStudy": "Computer Science", "endYear": 2018 }
+    ],
+    "location": { "city": "San Francisco", "region": "CA", "country": "USA" },
+    "skills": ["React", "Node.js", "Python", "PostgreSQL"],
+    "last_updated": "2025-01-15T00:00:00Z"
+  }
+]

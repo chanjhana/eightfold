@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "candidate-pipeline"
+version = "0.1.0"
+description = "Candidate Profile Transformation Pipeline (Eightfold take-home)"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pydantic>=2",
+    "phonenumbers",
+    "python-dateutil",
+    "pycountry",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+]
+
+[project.scripts]
+candidate-pipeline = "candidate_pipeline.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["candidate_pipeline*"]
+
+[tool.setuptools.package-data]
+candidate_pipeline = ["normalize/*.json", "data/fixtures/*", "data/configs/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

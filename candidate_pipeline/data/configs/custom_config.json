@@ -1,0 +1,11 @@
+{
+  "on_missing": "omit",
+  "include_flags": false,
+  "fields": [
+    { "path": "name", "from": "full_name", "type": "string", "required": true, "include_confidence": true },
+    { "path": "primary_email", "from": "emails[0]", "type": "string", "required": true },
+    { "path": "primary_phone", "from": "phones[0]", "type": "string", "normalize": "E164" },
+    { "path": "location", "type": "object", "include_provenance": true },
+    { "path": "skill_names", "from": "skills[].name", "type": "string[]", "normalize": "canonical" }
+  ]
+}

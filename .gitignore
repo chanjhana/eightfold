@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Tooling caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Pipeline run outputs (generated; goldens under tests/golden are tracked)
+/profiles.json
+/report.json
+/out.json
+scratch_*.json
+
+# OS / editor
+.DS_Store
+*.swp
+.idea/
+.vscode/

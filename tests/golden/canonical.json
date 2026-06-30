@@ -1,0 +1,1073 @@
+[
+  {
+    "candidate_id": "cand_0c9fd646cec9",
+    "full_name": {
+      "value": "Jordan Lee",
+      "confidence": 0.7,
+      "sources": [
+        "github_api"
+      ],
+      "provenance": [
+        {
+          "source": "github_api",
+          "method": "github:field",
+          "raw": "Jordan Lee",
+          "value": "Jordan Lee"
+        }
+      ],
+      "competitors": []
+    },
+    "emails": [
+      {
+        "value": "jordan.lee@example.com",
+        "confidence": 0.7,
+        "sources": [
+          "github_api"
+        ],
+        "provenance": [
+          {
+            "source": "github_api",
+            "method": "github:field",
+            "raw": "jordan.lee@example.com",
+            "value": "jordan.lee@example.com"
+          }
+        ],
+        "competitors": []
+      }
+    ],
+    "phones": [],
+    "location": {
+      "value": {
+        "city": null,
+        "region": null,
+        "country": null,
+        "raw": "Remote"
+      },
+      "confidence": 0.48,
+      "sources": [
+        "github_api"
+      ],
+      "provenance": [
+        {
+          "source": "github_api",
+          "method": "github:field",
+          "raw": "Remote",
+          "value": {
+            "city": null,
+            "region": null,
+            "country": null,
+            "raw": "Remote"
+          }
+        }
+      ],
+      "competitors": []
+    },
+    "links": {
+      "value": {
+        "linkedin": null,
+        "github": "https://github.com/jlee",
+        "portfolio": null,
+        "other": []
+      },
+      "confidence": null,
+      "sources": [
+        "github_api"
+      ],
+      "provenance": [],
+      "competitors": []
+    },
+    "headline": {
+      "value": "Backend developer.",
+      "confidence": 0.48,
+      "sources": [
+        "github_api"
+      ],
+      "provenance": [
+        {
+          "source": "github_api",
+          "method": "github:field",
+          "raw": "Backend developer.",
+          "value": "Backend developer."
+        }
+      ],
+      "competitors": []
+    },
+    "skills": [],
+    "experience": [
+      {
+        "company": {
+          "value": "Acme Corp",
+          "confidence": 0.48,
+          "sources": [
+            "github_api"
+          ],
+          "provenance": [
+            {
+              "source": "github_api",
+              "method": "github:field",
+              "raw": "Acme Corp",
+              "value": "Acme Corp"
+            }
+          ],
+          "competitors": []
+        },
+        "title": null,
+        "start": null,
+        "end": null,
+        "summary": null
+      }
+    ],
+    "education": [],
+    "years_experience": null,
+    "overall_confidence": 0.435,
+    "flags": []
+  },
+  {
+    "candidate_id": "cand_51d897295bf5",
+    "full_name": {
+      "value": "Aisha Khan",
+      "confidence": 0.9750000000000001,
+      "sources": [
+        "ats_json",
+        "github_api",
+        "recruiter_csv"
+      ],
+      "provenance": [
+        {
+          "source": "recruiter_csv",
+          "method": "csv:column",
+          "raw": "Aisha Khan",
+          "value": "Aisha Khan"
+        },
+        {
+          "source": "ats_json",
+          "method": "ats:path",
+          "raw": "Aisha Khan",
+          "value": "Aisha Khan"
+        },
+        {
+          "source": "github_api",
+          "method": "github:field",
+          "raw": "Aisha Khan",
+          "value": "Aisha Khan"
+        }
+      ],
+      "competitors": []
+    },
+    "emails": [
+      {
+        "value": "aisha.khan@example.com",
+        "confidence": 0.9750000000000001,
+        "sources": [
+          "ats_json",
+          "github_api",
+          "recruiter_csv"
+        ],
+        "provenance": [
+          {
+            "source": "recruiter_csv",
+            "method": "csv:column",
+            "raw": "aisha.khan@example.com",
+            "value": "aisha.khan@example.com"
+          },
+          {
+            "source": "ats_json",
+            "method": "ats:path",
+            "raw": "aisha.khan@example.com",
+            "value": "aisha.khan@example.com"
+          },
+          {
+            "source": "github_api",
+            "method": "github:field",
+            "raw": "aisha.khan@example.com",
+            "value": "aisha.khan@example.com"
+          }
+        ],
+        "competitors": []
+      }
+    ],
+    "phones": [
+      {
+        "value": "+14155552671",
+        "confidence": 0.925,
+        "sources": [
+          "ats_json",
+          "recruiter_csv"
+        ],
+        "provenance": [
+          {
+            "source": "recruiter_csv",
+            "method": "normalize:e164",
+            "raw": "+1 415 555 2671",
+            "value": "+14155552671"
+          },
+          {
+            "source": "ats_json",
+            "method": "normalize:e164",
+            "raw": "+14155552671",
+            "value": "+14155552671"
+          }
+        ],
+        "competitors": []
+      }
+    ],
+    "location": {
+      "value": {
+        "city": "San Francisco",
+        "region": "CA",
+        "country": "US",
+        "raw": {
+          "city": "San Francisco",
+          "region": "CA",
+          "country": "USA"
+        }
+      },
+      "confidence": 0.80925,
+      "sources": [
+        "ats_json",
+        "github_api",
+        "recruiter_csv"
+      ],
+      "provenance": [
+        {
+          "source": "recruiter_csv",
+          "method": "csv:column",
+          "raw": {
+            "city": "San Francisco",
+            "country": "USA"
+          },
+          "value": {
+            "city": "San Francisco",
+            "region": null,
+            "country": "US",
+            "raw": {
+              "city": "San Francisco",
+              "country": "USA"
+            }
+          }
+        },
+        {
+          "source": "ats_json",
+          "method": "ats:path",
+          "raw": {
+            "city": "San Francisco",
+            "region": "CA",
+            "country": "USA"
+          },
+          "value": {
+            "city": "San Francisco",
+            "region": "CA",
+            "country": "US",
+            "raw": {
+              "city": "San Francisco",
+              "region": "CA",
+              "country": "USA"
+            }
+          }
+        },
+        {
+          "source": "github_api",
+          "method": "github:field",
+          "raw": "San Francisco, USA",
+          "value": {
+            "city": null,
+            "region": null,
+            "country": "US",
+            "raw": "San Francisco, USA"
+          }
+        }
+      ],
+      "competitors": []
+    },
+    "links": {
+      "value": {
+        "linkedin": null,
+        "github": "https://github.com/aishakhan",
+        "portfolio": "https://aisha.dev",
+        "other": []
+      },
+      "confidence": null,
+      "sources": [
+        "github_api"
+      ],
+      "provenance": [],
+      "competitors": []
+    },
+    "headline": {
+      "value": "Senior Software Engineer. Payments & infrastructure.",
+      "confidence": 0.588,
+      "sources": [
+        "github_api"
+      ],
+      "provenance": [
+        {
+          "source": "github_api",
+          "method": "github:field",
+          "raw": "Senior Software Engineer. Payments & infrastructure.",
+          "value": "Senior Software Engineer. Payments & infrastructure."
+        }
+      ],
+      "competitors": []
+    },
+    "skills": [
+      {
+        "value": "Node.js",
+        "confidence": 0.925,
+        "sources": [
+          "ats_json",
+          "recruiter_csv"
+        ],
+        "provenance": [
+          {
+            "source": "recruiter_csv",
+            "method": "normalize:skill-alias",
+            "raw": "node.js",
+            "value": "Node.js"
+          },
+          {
+            "source": "ats_json",
+            "method": "normalize:skill-alias",
+            "raw": "Node.js",
+            "value": "Node.js"
+          }
+        ],
+        "competitors": []
+      },
+      {
+        "value": "Python",
+        "confidence": 0.925,
+        "sources": [
+          "ats_json",
+          "recruiter_csv"
+        ],
+        "provenance": [
+          {
+            "source": "recruiter_csv",
+            "method": "normalize:skill-alias",
+            "raw": "Python",
+            "value": "Python"
+          },
+          {
+            "source": "ats_json",
+            "method": "normalize:skill-alias",
+            "raw": "Python",
+            "value": "Python"
+          }
+        ],
+        "competitors": []
+      },
+      {
+        "value": "React",
+        "confidence": 0.925,
+        "sources": [
+          "ats_json",
+          "recruiter_csv"
+        ],
+        "provenance": [
+          {
+            "source": "recruiter_csv",
+            "method": "normalize:skill-alias",
+            "raw": "ReactJS",
+            "value": "React"
+          },
+          {
+            "source": "ats_json",
+            "method": "normalize:skill-alias",
+            "raw": "React",
+            "value": "React"
+          }
+        ],
+        "competitors": []
+      },
+      {
+        "value": "PostgreSQL",
+        "confidence": 0.9,
+        "sources": [
+          "ats_json"
+        ],
+        "provenance": [
+          {
+            "source": "ats_json",
+            "method": "normalize:skill-alias",
+            "raw": "PostgreSQL",
+            "value": "PostgreSQL"
+          }
+        ],
+        "competitors": []
+      },
+      {
+        "value": ".NET",
+        "confidence": 0.8,
+        "sources": [
+          "recruiter_csv"
+        ],
+        "provenance": [
+          {
+            "source": "recruiter_csv",
+            "method": "normalize:skill-alias",
+            "raw": ".NET",
+            "value": ".NET"
+          }
+        ],
+        "competitors": []
+      },
+      {
+        "value": "C#",
+        "confidence": 0.8,
+        "sources": [
+          "recruiter_csv"
+        ],
+        "provenance": [
+          {
+            "source": "recruiter_csv",
+            "method": "normalize:skill-alias",
+            "raw": "C#",
+            "value": "C#"
+          }
+        ],
+        "competitors": []
+      },
+      {
+        "value": "C++",
+        "confidence": 0.8,
+        "sources": [
+          "recruiter_csv"
+        ],
+        "provenance": [
+          {
+            "source": "recruiter_csv",
+            "method": "normalize:skill-alias",
+            "raw": "C++",
+            "value": "C++"
+          }
+        ],
+        "competitors": []
+      }
+    ],
+    "experience": [
+      {
+        "company": {
+          "value": "Stripe",
+          "confidence": 0.747,
+          "sources": [
+            "ats_json",
+            "github_api"
+          ],
+          "provenance": [
+            {
+              "source": "recruiter_csv",
+              "method": "csv:column",
+              "raw": "Shopify",
+              "value": "Shopify"
+            },
+            {
+              "source": "ats_json",
+              "method": "ats:path",
+              "raw": "Stripe",
+              "value": "Stripe"
+            },
+            {
+              "source": "github_api",
+              "method": "github:field",
+              "raw": "Stripe",
+              "value": "Stripe"
+            }
+          ],
+          "competitors": [
+            "Shopify"
+          ]
+        },
+        "title": {
+          "value": "Senior Software Engineer",
+          "confidence": 0.76775,
+          "sources": [
+            "ats_json",
+            "recruiter_csv"
+          ],
+          "provenance": [
+            {
+              "source": "recruiter_csv",
+              "method": "csv:column",
+              "raw": "Senior Software Engineer",
+              "value": "Senior Software Engineer"
+            },
+            {
+              "source": "ats_json",
+              "method": "ats:path",
+              "raw": "Senior Software Engineer",
+              "value": "Senior Software Engineer"
+            }
+          ],
+          "competitors": []
+        },
+        "start": {
+          "value": "2021-03",
+          "confidence": 0.9,
+          "sources": [
+            "ats_json"
+          ],
+          "provenance": [
+            {
+              "source": "ats_json",
+              "method": "normalize:iso-date",
+              "raw": "2021-03",
+              "value": "2021-03"
+            }
+          ],
+          "competitors": []
+        },
+        "end": null,
+        "summary": {
+          "value": "Payments infrastructure for the API platform.",
+          "confidence": 0.9,
+          "sources": [
+            "ats_json"
+          ],
+          "provenance": [
+            {
+              "source": "ats_json",
+              "method": "ats:path",
+              "raw": "Payments infrastructure for the API platform.",
+              "value": "Payments infrastructure for the API platform."
+            }
+          ],
+          "competitors": []
+        }
+      },
+      {
+        "company": {
+          "value": "Shopify",
+          "confidence": 0.9,
+          "sources": [
+            "ats_json"
+          ],
+          "provenance": [
+            {
+              "source": "ats_json",
+              "method": "ats:path",
+              "raw": "Shopify",
+              "value": "Shopify"
+            }
+          ],
+          "competitors": []
+        },
+        "title": {
+          "value": "Software Engineer",
+          "confidence": 0.9,
+          "sources": [
+            "ats_json"
+          ],
+          "provenance": [
+            {
+              "source": "ats_json",
+              "method": "ats:path",
+              "raw": "Software Engineer",
+              "value": "Software Engineer"
+            }
+          ],
+          "competitors": []
+        },
+        "start": {
+          "value": "2018",
+          "confidence": 0.9,
+          "sources": [
+            "ats_json"
+          ],
+          "provenance": [
+            {
+              "source": "ats_json",
+              "method": "normalize:iso-date",
+              "raw": "2018",
+              "value": "2018"
+            }
+          ],
+          "competitors": []
+        },
+        "end": {
+          "value": "2021-02",
+          "confidence": 0.9,
+          "sources": [
+            "ats_json"
+          ],
+          "provenance": [
+            {
+              "source": "ats_json",
+              "method": "normalize:iso-date",
+              "raw": "2021-02",
+              "value": "2021-02"
+            }
+          ],
+          "competitors": []
+        },
+        "summary": {
+          "value": "Storefront rendering.",
+          "confidence": 0.9,
+          "sources": [
+            "ats_json"
+          ],
+          "provenance": [
+            {
+              "source": "ats_json",
+              "method": "ats:path",
+              "raw": "Storefront rendering.",
+              "value": "Storefront rendering."
+            }
+          ],
+          "competitors": []
+        }
+      }
+    ],
+    "education": [
+      {
+        "institution": {
+          "value": "MIT",
+          "confidence": 0.9,
+          "sources": [
+            "ats_json"
+          ],
+          "provenance": [
+            {
+              "source": "ats_json",
+              "method": "ats:path",
+              "raw": "MIT",
+              "value": "MIT"
+            }
+          ],
+          "competitors": []
+        },
+        "degree": {
+          "value": "BS",
+          "confidence": 0.9,
+          "sources": [
+            "ats_json"
+          ],
+          "provenance": [
+            {
+              "source": "ats_json",
+              "method": "ats:path",
+              "raw": "BS",
+              "value": "BS"
+            }
+          ],
+          "competitors": []
+        },
+        "field": {
+          "value": "Computer Science",
+          "confidence": 0.9,
+          "sources": [
+            "ats_json"
+          ],
+          "provenance": [
+            {
+              "source": "ats_json",
+              "method": "ats:path",
+              "raw": "Computer Science",
+              "value": "Computer Science"
+            }
+          ],
+          "competitors": []
+        },
+        "end_year": {
+          "value": 2018,
+          "confidence": 0.9,
+          "sources": [
+            "ats_json"
+          ],
+          "provenance": [
+            {
+              "source": "ats_json",
+              "method": "ats:path",
+              "raw": 2018,
+              "value": 2018
+            }
+          ],
+          "competitors": []
+        }
+      }
+    ],
+    "years_experience": 8.33,
+    "overall_confidence": 0.885638,
+    "flags": [
+      {
+        "kind": "conflict_resolved",
+        "detail": "current company: Stripe over ['Shopify']"
+      }
+    ]
+  },
+  {
+    "candidate_id": "cand_77292ce4fbd1",
+    "full_name": {
+      "value": "Pat Morgan",
+      "confidence": 0.7,
+      "sources": [
+        "github_api"
+      ],
+      "provenance": [
+        {
+          "source": "github_api",
+          "method": "github:field",
+          "raw": "Pat Morgan",
+          "value": "Pat Morgan"
+        }
+      ],
+      "competitors": []
+    },
+    "emails": [],
+    "phones": [],
+    "location": {
+      "value": {
+        "city": null,
+        "region": null,
+        "country": null,
+        "raw": "Unknown"
+      },
+      "confidence": 0.48,
+      "sources": [
+        "github_api"
+      ],
+      "provenance": [
+        {
+          "source": "github_api",
+          "method": "github:field",
+          "raw": "Unknown",
+          "value": {
+            "city": null,
+            "region": null,
+            "country": null,
+            "raw": "Unknown"
+          }
+        }
+      ],
+      "competitors": []
+    },
+    "links": {
+      "value": {
+        "linkedin": null,
+        "github": "https://github.com/ghost-coder",
+        "portfolio": null,
+        "other": []
+      },
+      "confidence": null,
+      "sources": [
+        "github_api"
+      ],
+      "provenance": [],
+      "competitors": []
+    },
+    "headline": {
+      "value": "I build things.",
+      "confidence": 0.48,
+      "sources": [
+        "github_api"
+      ],
+      "provenance": [
+        {
+          "source": "github_api",
+          "method": "github:field",
+          "raw": "I build things.",
+          "value": "I build things."
+        }
+      ],
+      "competitors": []
+    },
+    "skills": [],
+    "experience": [
+      {
+        "company": {
+          "value": "Mystery Inc",
+          "confidence": 0.48,
+          "sources": [
+            "github_api"
+          ],
+          "provenance": [
+            {
+              "source": "github_api",
+              "method": "github:field",
+              "raw": "Mystery Inc",
+              "value": "Mystery Inc"
+            }
+          ],
+          "competitors": []
+        },
+        "title": null,
+        "start": null,
+        "end": null,
+        "summary": null
+      }
+    ],
+    "education": [],
+    "years_experience": null,
+    "overall_confidence": 0.295,
+    "flags": []
+  },
+  {
+    "candidate_id": "cand_7caa0d54e30f",
+    "full_name": {
+      "value": "Sri Krishna V",
+      "confidence": 0.75,
+      "sources": [
+        "recruiter_csv"
+      ],
+      "provenance": [
+        {
+          "source": "recruiter_csv",
+          "method": "csv:column",
+          "raw": "Sri Krishna V",
+          "value": "Sri Krishna V"
+        },
+        {
+          "source": "github_api",
+          "method": "github:field",
+          "raw": "Sri Krishna Vijayarajan",
+          "value": "Sri Krishna Vijayarajan"
+        }
+      ],
+      "competitors": [
+        "Sri Krishna Vijayarajan"
+      ]
+    },
+    "emails": [
+      {
+        "value": "sri.k@personal.com",
+        "confidence": 0.8,
+        "sources": [
+          "recruiter_csv"
+        ],
+        "provenance": [
+          {
+            "source": "recruiter_csv",
+            "method": "csv:column",
+            "raw": "sri.k@personal.com",
+            "value": "sri.k@personal.com"
+          }
+        ],
+        "competitors": []
+      }
+    ],
+    "phones": [
+      {
+        "value": "+919876543210",
+        "confidence": 0.8,
+        "sources": [
+          "recruiter_csv"
+        ],
+        "provenance": [
+          {
+            "source": "recruiter_csv",
+            "method": "assume:default_region",
+            "raw": "98765 43210",
+            "value": "+919876543210"
+          }
+        ],
+        "competitors": []
+      }
+    ],
+    "location": {
+      "value": {
+        "city": "Bengaluru",
+        "region": null,
+        "country": "IN",
+        "raw": {
+          "city": "Bengaluru",
+          "country": "India"
+        }
+      },
+      "confidence": 0.8500000000000001,
+      "sources": [
+        "github_api",
+        "recruiter_csv"
+      ],
+      "provenance": [
+        {
+          "source": "recruiter_csv",
+          "method": "csv:column",
+          "raw": {
+            "city": "Bengaluru",
+            "country": "India"
+          },
+          "value": {
+            "city": "Bengaluru",
+            "region": null,
+            "country": "IN",
+            "raw": {
+              "city": "Bengaluru",
+              "country": "India"
+            }
+          }
+        },
+        {
+          "source": "github_api",
+          "method": "github:field",
+          "raw": "Bengaluru, India",
+          "value": {
+            "city": null,
+            "region": null,
+            "country": "IN",
+            "raw": "Bengaluru, India"
+          }
+        }
+      ],
+      "competitors": []
+    },
+    "links": {
+      "value": {
+        "linkedin": null,
+        "github": "https://github.com/sri-krishna",
+        "portfolio": null,
+        "other": []
+      },
+      "confidence": null,
+      "sources": [
+        "github_api"
+      ],
+      "provenance": [],
+      "competitors": []
+    },
+    "headline": {
+      "value": "Engineering Manager. Distributed systems.",
+      "confidence": 0.564,
+      "sources": [
+        "github_api"
+      ],
+      "provenance": [
+        {
+          "source": "github_api",
+          "method": "github:field",
+          "raw": "Engineering Manager. Distributed systems.",
+          "value": "Engineering Manager. Distributed systems."
+        }
+      ],
+      "competitors": []
+    },
+    "skills": [
+      {
+        "value": "Java",
+        "confidence": 0.8,
+        "sources": [
+          "recruiter_csv"
+        ],
+        "provenance": [
+          {
+            "source": "recruiter_csv",
+            "method": "normalize:skill-alias",
+            "raw": "Java",
+            "value": "Java"
+          }
+        ],
+        "competitors": []
+      },
+      {
+        "value": "Kubernetes",
+        "confidence": 0.8,
+        "sources": [
+          "recruiter_csv"
+        ],
+        "provenance": [
+          {
+            "source": "recruiter_csv",
+            "method": "normalize:skill-alias",
+            "raw": "Kubernetes",
+            "value": "Kubernetes"
+          }
+        ],
+        "competitors": []
+      },
+      {
+        "value": "Spring Boot",
+        "confidence": 0.8,
+        "sources": [
+          "recruiter_csv"
+        ],
+        "provenance": [
+          {
+            "source": "recruiter_csv",
+            "method": "normalize:skill-alias",
+            "raw": "Spring Boot",
+            "value": "Spring Boot"
+          }
+        ],
+        "competitors": []
+      },
+      {
+        "value": "COBOL",
+        "confidence": 0.7000000000000001,
+        "sources": [
+          "recruiter_csv"
+        ],
+        "provenance": [
+          {
+            "source": "recruiter_csv",
+            "method": "verbatim",
+            "raw": "COBOL",
+            "value": "COBOL"
+          }
+        ],
+        "competitors": []
+      }
+    ],
+    "experience": [
+      {
+        "company": {
+          "value": "Infosys",
+          "confidence": 0.75,
+          "sources": [
+            "recruiter_csv"
+          ],
+          "provenance": [
+            {
+              "source": "recruiter_csv",
+              "method": "csv:column",
+              "raw": "Infosys",
+              "value": "Infosys"
+            },
+            {
+              "source": "github_api",
+              "method": "github:field",
+              "raw": "Google",
+              "value": "Google"
+            }
+          ],
+          "competitors": [
+            "Google"
+          ]
+        },
+        "title": {
+          "value": "Engineering Manager",
+          "confidence": 0.8,
+          "sources": [
+            "recruiter_csv"
+          ],
+          "provenance": [
+            {
+              "source": "recruiter_csv",
+              "method": "csv:column",
+              "raw": "Engineering Manager",
+              "value": "Engineering Manager"
+            }
+          ],
+          "competitors": []
+        },
+        "start": null,
+        "end": null,
+        "summary": null
+      }
+    ],
+    "education": [],
+    "years_experience": null,
+    "overall_confidence": 0.785,
+    "flags": [
+      {
+        "kind": "conflict_resolved",
+        "detail": "current company: Infosys over ['Google']"
+      },
+      {
+        "kind": "assumed_region",
+        "detail": "region=IN"
+      },
+      {
+        "kind": "uncanonicalized_skill",
+        "detail": "COBOL"
+      }
+    ]
+  }
+]

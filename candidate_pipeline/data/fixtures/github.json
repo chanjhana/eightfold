@@ -1,0 +1,42 @@
+[
+  {
+    "login": "aishakhan",
+    "name": "Aisha Khan",
+    "company": "Stripe",
+    "location": "San Francisco, USA",
+    "bio": "Senior Software Engineer. Payments & infrastructure.",
+    "blog": "https://aisha.dev",
+    "email": "aisha.khan@example.com",
+    "updated_at": "2026-04-01T00:00:00Z"
+  },
+  {
+    "login": "sri-krishna",
+    "name": "Sri Krishna Vijayarajan",
+    "company": "Google",
+    "location": "Bengaluru, India",
+    "bio": "Engineering Manager. Distributed systems.",
+    "blog": null,
+    "email": null,
+    "updated_at": "2025-12-01T00:00:00Z"
+  },
+  {
+    "login": "jlee",
+    "name": "Jordan Lee",
+    "company": "Acme Corp",
+    "location": "Remote",
+    "bio": "Backend developer.",
+    "blog": null,
+    "email": "jordan.lee@example.com",
+    "updated_at": "2024-01-15T00:00:00Z"
+  },
+  {
+    "login": "ghost-coder",
+    "name": "Pat Morgan",
+    "company": "Mystery Inc",
+    "location": "Unknown",
+    "bio": "I build things.",
+    "blog": null,
+    "email": null,
+    "updated_at": "2023-06-01T00:00:00Z"
+  }
+]
