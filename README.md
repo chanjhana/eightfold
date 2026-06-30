@@ -88,6 +88,25 @@ given consumer wants it shaped."
 All tunable numbers live in exactly two places: `confidence/scorer.py` and
 `merge/trust.py`.
 
+### Sources & the GitHub "unstructured" representative
+
+Two structured sources (**recruiter CSV**, **ATS JSON**) and one unstructured one
+(**GitHub**). The GitHub adapter mirrors the real REST API rather than just the
+`/users/{login}` scalar fields:
+
+- `bio` / free-text `company` / `location` → prose-penalized fields (headline,
+  company, location), as before.
+- `repos[]` (shaped like `GET /users/{login}/repos`) → each **non-fork** repo's
+  `language` canonicalizes through the same alias map as any CSV/ATS skill and
+  joins `skills`; a language that matches an already-listed skill **corroborates**
+  it (e.g. Aisha's Python becomes a 3-source skill). The top-2-by-stars non-fork
+  repos surface as `links.other[]`.
+- **Forks are excluded** from both languages and links — a fork's language and
+  star count reflect the upstream project, not the candidate's own work.
+
+`--live` is a no-op stub that always reads the fixture (no network at runtime),
+so the API shape is honored without the demo ever flaking.
+
 ---
 
 ## Design rationale
