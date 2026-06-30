@@ -67,7 +67,10 @@
         "linkedin": null,
         "github": "https://github.com/jlee",
         "portfolio": null,
-        "other": []
+        "other": [
+          "https://github.com/jlee/task-queue",
+          "https://github.com/jlee/api-gateway"
+        ]
       },
       "confidence": null,
       "sources": [
@@ -92,7 +95,40 @@
       ],
       "competitors": []
     },
-    "skills": [],
+    "skills": [
+      {
+        "value": "Go",
+        "confidence": 0.7,
+        "sources": [
+          "github_api"
+        ],
+        "provenance": [
+          {
+            "source": "github_api",
+            "method": "normalize:skill-alias",
+            "raw": "Go",
+            "value": "Go"
+          }
+        ],
+        "competitors": []
+      },
+      {
+        "value": "Python",
+        "confidence": 0.7,
+        "sources": [
+          "github_api"
+        ],
+        "provenance": [
+          {
+            "source": "github_api",
+            "method": "normalize:skill-alias",
+            "raw": "Python",
+            "value": "Python"
+          }
+        ],
+        "competitors": []
+      }
+    ],
     "experience": [
       {
         "company": {
@@ -284,7 +320,10 @@
         "linkedin": null,
         "github": "https://github.com/aishakhan",
         "portfolio": "https://aisha.dev",
-        "other": []
+        "other": [
+          "https://github.com/aishakhan/payments-api",
+          "https://github.com/aishakhan/checkout-service"
+        ]
       },
       "confidence": null,
       "sources": [
@@ -311,6 +350,36 @@
     },
     "skills": [
       {
+        "value": "Python",
+        "confidence": 0.9750000000000001,
+        "sources": [
+          "ats_json",
+          "github_api",
+          "recruiter_csv"
+        ],
+        "provenance": [
+          {
+            "source": "recruiter_csv",
+            "method": "normalize:skill-alias",
+            "raw": "Python",
+            "value": "Python"
+          },
+          {
+            "source": "ats_json",
+            "method": "normalize:skill-alias",
+            "raw": "Python",
+            "value": "Python"
+          },
+          {
+            "source": "github_api",
+            "method": "normalize:skill-alias",
+            "raw": "Python",
+            "value": "Python"
+          }
+        ],
+        "competitors": []
+      },
+      {
         "value": "Node.js",
         "confidence": 0.925,
         "sources": [
@@ -329,29 +398,6 @@
             "method": "normalize:skill-alias",
             "raw": "Node.js",
             "value": "Node.js"
-          }
-        ],
-        "competitors": []
-      },
-      {
-        "value": "Python",
-        "confidence": 0.925,
-        "sources": [
-          "ats_json",
-          "recruiter_csv"
-        ],
-        "provenance": [
-          {
-            "source": "recruiter_csv",
-            "method": "normalize:skill-alias",
-            "raw": "Python",
-            "value": "Python"
-          },
-          {
-            "source": "ats_json",
-            "method": "normalize:skill-alias",
-            "raw": "Python",
-            "value": "Python"
           }
         ],
         "competitors": []
@@ -439,6 +485,22 @@
             "method": "normalize:skill-alias",
             "raw": "C++",
             "value": "C++"
+          }
+        ],
+        "competitors": []
+      },
+      {
+        "value": "Go",
+        "confidence": 0.7,
+        "sources": [
+          "github_api"
+        ],
+        "provenance": [
+          {
+            "source": "github_api",
+            "method": "normalize:skill-alias",
+            "raw": "Go",
+            "value": "Go"
           }
         ],
         "competitors": []
@@ -914,7 +976,10 @@
         "linkedin": null,
         "github": "https://github.com/sri-krishna",
         "portfolio": null,
-        "other": []
+        "other": [
+          "https://github.com/sri-krishna/distributed-scheduler",
+          "https://github.com/sri-krishna/k8s-operators"
+        ]
       },
       "confidence": null,
       "sources": [
@@ -942,13 +1007,20 @@
     "skills": [
       {
         "value": "Java",
-        "confidence": 0.8,
+        "confidence": 0.8500000000000001,
         "sources": [
+          "github_api",
           "recruiter_csv"
         ],
         "provenance": [
           {
             "source": "recruiter_csv",
+            "method": "normalize:skill-alias",
+            "raw": "Java",
+            "value": "Java"
+          },
+          {
+            "source": "github_api",
             "method": "normalize:skill-alias",
             "raw": "Java",
             "value": "Java"
@@ -1000,6 +1072,22 @@
             "method": "verbatim",
             "raw": "COBOL",
             "value": "COBOL"
+          }
+        ],
+        "competitors": []
+      },
+      {
+        "value": "Go",
+        "confidence": 0.7,
+        "sources": [
+          "github_api"
+        ],
+        "provenance": [
+          {
+            "source": "github_api",
+            "method": "normalize:skill-alias",
+            "raw": "Go",
+            "value": "Go"
           }
         ],
         "competitors": []

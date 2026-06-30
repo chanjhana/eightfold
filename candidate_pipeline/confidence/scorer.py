@@ -75,7 +75,7 @@ def _corroboration(winner: str, agreeing_sources) -> float:
 
 def recency_factor(last_updated, as_of, time_varying: bool) -> float:
     """Recency multiplier (PRD §9.2/§9.3). Only time-varying fields decay."""
-    if not time_varying or not last_updated:
+    if not time_varying or not last_updated or as_of is None:
         return 1.0
     from dateutil import parser as dateparser
 

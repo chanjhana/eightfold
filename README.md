@@ -20,7 +20,7 @@ management, but it is a standard `pyproject.toml` package, so plain `pip` works 
 # with uv
 uv venv
 uv pip install -e ".[dev]"
-uv run pytest                     # 101 tests, all green
+uv run pytest                     # 202 tests, all green
 
 # or with pip
 python -m venv .venv && . .venv/Scripts/activate   # .venv/bin/activate on POSIX
@@ -47,6 +47,9 @@ uv run candidate-pipeline transform \
 - `--as-of YYYY-MM-DD` pins recency decay and `years_experience` (omit → today).
 - `--live` is a **no-op GitHub stub** that defaults to the fixture, so the demo never flakes.
 - `--report` writes the batch audit trail (skips / conflicts / assumptions / counts).
+- `--strict` makes the run **exit non-zero** if any profile is dropped at the output
+  stage (an `on_missing: "error"` / required miss, or invalid output). Without it, such a
+  drop is recorded as a `projection` skip and the batch still exits 0 (see below).
 
 ```bash
 uv run candidate-pipeline validate-config --config candidate_pipeline/data/configs/custom_config.json
@@ -153,6 +156,15 @@ shape verbatim — `candidate_id, full_name, emails, phones, location, links,
 headline, years_experience, skills ({name, confidence, sources[]}), experience,
 education, overall_confidence`, plus a top-level `provenance` aggregate.
 
+### `on_missing` and `--strict`
+`on_missing` (and a field's `required: true`) decide what happens when a projected value
+is absent: `null` emits the key as null, `omit` drops the key, `error` drops the **whole
+profile**. By default a dropped profile is recorded as a `projection` skip in `--report`
+and the batch continues (exit 0) — one bad profile must never crash the run. Pass
+`--strict` to turn any such output-stage drop into a **non-zero exit** for CI/pipelines
+that want `error` to fail loudly. Graceful adapter skips (a garbage/missing source) are
+**not** strict failures — skipping a bad source is the intended robustness behavior.
+
 `data/configs/custom_config.json` proves the layer is real: it renames fields,
 inlines confidence/provenance, and reshapes `skills` to a flat `string[]` — all at
 runtime, **with no code change**. The path resolver supports `field`,
@@ -173,10 +185,40 @@ runtime, **with no code change**. The path resolver supports `field`,
 
 ---
 
+## Robustness (break-the-pipeline hardening)
+
+Beyond the demo fixtures, a dedicated set of **synthetic torture fixtures**
+(`data/fixtures/edge/`) and ~95 edge tests probe the pipeline the way a hostile
+input would. The defensive guarantees:
+
+- **Per-record resilience** — one poison row/object is skipped and logged as a
+  `record:<source>` entry (with a `records_skipped` count); the rest of the file
+  still loads. A bad *record* no longer drops the whole *source*.
+- **Shape tolerance** — a top-level JSON **object** (not an array) is accepted; an
+  explicit `null` nested value (`candidate`/`employment`/`location`) and a
+  non-object array element degrade gracefully instead of crashing.
+- **Encoding/format tolerance** — a UTF-8 **BOM** is stripped (CSV, JSON, configs);
+  CSV headers are matched case/whitespace-insensitively; output is always written
+  UTF-8 regardless of console codepage (so `李明`/`José` never crash stdout).
+- **No silent-wrong values** — `mailto:`/trailing-punctuation emails are cleaned;
+  an out-of-range month like `2020-13` is rejected (never padded to a fake month);
+  skills split on `, ; | ⏎ ⇥` (but not `/`, so `CI/CD` stays intact).
+- **Config validation** — duplicate / empty output `path`s are rejected at load
+  time (a duplicate used to silently overwrite — data loss) via `validate-config`.
+- **Multiple files per type** — `--inputs csv:primary=a.csv csv:backfill=b.csv`
+  ingests several files of one source type in a single run.
+
+Genuine hard problems stay **deliberately descoped** and are *pinned* by test with
+a comment, not papered over: a shared inbox links two different people; `Georgia`
+the country wins over the US state; vanity phone letters are converted by
+`phonenumbers`. These document current behavior honestly rather than faking a fix.
+
+---
+
 ## Testing
 
 ```bash
-uv run pytest            # 101 tests
+uv run pytest            # 202 tests
 ```
 
 - **Per-normalizer units** (phone, dates, country, skills incl. the C++/C#/.NET table, email)
@@ -186,9 +228,17 @@ uv run pytest            # 101 tests
 - **`test_projection`** — default + custom config, assert-only normalize, on_missing semantics
 - **`test_e2e`** — full run compared against golden JSON (canonical + default output)
 - **`test_garbage_source`** — malformed source → skip, batch continues
+- **`test_normalizers_edge`** — the silent-wrong / fabrication classes per normalizer
+- **`test_adapter_resilience`** — per-record survival, single-object & null-nested tolerance, BOM, header normalization, non-string scalars
+- **`test_core_logic_edge`** — identity (login case, transitive, shared-email), merge (single/empty cluster, date safety), confidence clamps, malformed projection paths
+- **`test_config_validation`** — duplicate / empty path rejected, BOM config, bad type/on_missing
+- **`test_torture_e2e`** — all edge fixtures at once → invariants (survives, schema-valid, no fabrication, deterministic)
+- **`test_cli_strict`** — `--strict` turns an output-stage drop into a non-zero exit
 
 Golden files (`tests/golden/`) are the contract; an intentional change is
-regenerated deliberately, never papered over by loosening an assertion.
+regenerated deliberately, never papered over by loosening an assertion. The edge
+suites assert **invariants** (counts, "no crash", "missing → null"), not memorized
+outputs, so the torture fixtures can evolve without brittle churn.
 
 ---
 

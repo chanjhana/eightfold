@@ -14,6 +14,12 @@ def fixtures_dir() -> Path:
 
 
 @pytest.fixture
+def edge_dir() -> Path:
+    """Synthetic torture fixtures exercising malformed/edge inputs."""
+    return _FIXTURES / "edge"
+
+
+@pytest.fixture
 def configs_dir() -> Path:
     return _CONFIGS
 

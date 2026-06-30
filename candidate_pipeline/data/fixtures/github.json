@@ -7,7 +7,12 @@
     "bio": "Senior Software Engineer. Payments & infrastructure.",
     "blog": "https://aisha.dev",
     "email": "aisha.khan@example.com",
-    "updated_at": "2026-04-01T00:00:00Z"
+    "updated_at": "2026-04-01T00:00:00Z",
+    "repos": [
+      { "name": "payments-api", "language": "Go", "fork": false, "stargazers_count": 142, "html_url": "https://github.com/aishakhan/payments-api" },
+      { "name": "checkout-service", "language": "Python", "fork": false, "stargazers_count": 58, "html_url": "https://github.com/aishakhan/checkout-service" },
+      { "name": "dotfiles", "language": "Shell", "fork": true, "stargazers_count": 999, "html_url": "https://github.com/aishakhan/dotfiles" }
+    ]
   },
   {
     "login": "sri-krishna",
@@ -17,7 +22,12 @@
     "bio": "Engineering Manager. Distributed systems.",
     "blog": null,
     "email": null,
-    "updated_at": "2025-12-01T00:00:00Z"
+    "updated_at": "2025-12-01T00:00:00Z",
+    "repos": [
+      { "name": "distributed-scheduler", "language": "Go", "fork": false, "stargazers_count": 230, "html_url": "https://github.com/sri-krishna/distributed-scheduler" },
+      { "name": "k8s-operators", "language": "Go", "fork": false, "stargazers_count": 95, "html_url": "https://github.com/sri-krishna/k8s-operators" },
+      { "name": "raft-consensus", "language": "Java", "fork": false, "stargazers_count": 12, "html_url": "https://github.com/sri-krishna/raft-consensus" }
+    ]
   },
   {
     "login": "jlee",
@@ -27,7 +37,11 @@
     "bio": "Backend developer.",
     "blog": null,
     "email": "jordan.lee@example.com",
-    "updated_at": "2024-01-15T00:00:00Z"
+    "updated_at": "2024-01-15T00:00:00Z",
+    "repos": [
+      { "name": "task-queue", "language": "Python", "fork": false, "stargazers_count": 34, "html_url": "https://github.com/jlee/task-queue" },
+      { "name": "api-gateway", "language": "Go", "fork": false, "stargazers_count": 21, "html_url": "https://github.com/jlee/api-gateway" }
+    ]
   },
   {
     "login": "ghost-coder",
@@ -37,6 +51,9 @@
     "bio": "I build things.",
     "blog": null,
     "email": null,
-    "updated_at": "2023-06-01T00:00:00Z"
+    "updated_at": "2023-06-01T00:00:00Z",
+    "repos": [
+      { "name": "forked-cms", "language": "PHP", "fork": true, "stargazers_count": 5, "html_url": "https://github.com/ghost-coder/forked-cms" }
+    ]
   }
 ]

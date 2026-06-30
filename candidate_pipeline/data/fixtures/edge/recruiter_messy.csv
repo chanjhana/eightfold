@@ -1,0 +1,6 @@
+﻿ Full_Name ,Email, PHONE ,Current_Company,current_title,City,Country,Skills
+José Núñez,mailto:jose@example.com,+1 (415) 555-2671,Acme,Engineer,Lisbon,Portugal,"Vue|Angular; rust"
+李明,li.ming@example.com.,+44 20 7183 8750,Globex,Manager,London,UK,"Python	Kotlin"
+Georgia Person,georgia.p@example.com,1-800-FLOWERS,Initech,Analyst,Atlanta,Georgia,"SQL, mongodb"
+
+Extra Columns,extra@example.com,+12025550123,WidgetCo,Lead,Denver,USA,"Go",surprise-extra-field

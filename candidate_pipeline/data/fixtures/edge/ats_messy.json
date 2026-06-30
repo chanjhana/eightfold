@@ -1,0 +1,34 @@
+[
+  {
+    "candidate": null,
+    "employment": null,
+    "location": null,
+    "experience": null,
+    "education": null,
+    "skills": null
+  },
+  {
+    "candidate": { "fullName": "Null Nested", "emails": ["null.nested@example.com"] },
+    "employment": { "current": null },
+    "location": null,
+    "experience": { "employer": "ObjectNotArray", "role": "Dev" },
+    "education": null,
+    "skills": ["Go", "Vue", "made-up-skill-xyz"]
+  },
+  {
+    "candidate": { "fullName": "Bad Dates", "emails": ["bad.dates@example.com"] },
+    "experience": [
+      { "employer": "Acme", "role": "Engineer", "startDate": "2018", "endDate": "Present" },
+      { "employer": "Beta", "role": "Engineer", "startDate": "2020-13", "endDate": "2021-02" },
+      "this experience entry is a string, not an object",
+      { "employer": "Gamma", "role": "Engineer", "startDate": "not-a-date", "endDate": "2019" }
+    ],
+    "education": [
+      { "school": "Edge University", "degree": "BS", "fieldOfStudy": "CS", "endYear": 999999 }
+    ],
+    "location": { "city": "Austin", "region": "TX", "country": "USA" },
+    "skills": ["Python", "graphql"],
+    "last_updated": "2025-03-01T00:00:00Z"
+  },
+  "this whole record is a string, not an object"
+]

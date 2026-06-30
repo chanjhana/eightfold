@@ -37,8 +37,12 @@ def test_multi_valued_skills_union_and_canonicalized(built_profiles):
     skills = {s.value: s.confidence for s in a.skills}
     # aliases applied, C++/C#/.NET preserved intact
     assert {"React", "Node.js", "Python", "C++", "C#", ".NET", "PostgreSQL"} <= set(skills)
-    # Python corroborated by ATS(0.90)+CSV(0.80, indep 0.5) -> 0.925
-    assert skills["Python"] == pytest.approx(0.925, abs=1e-6)
+    # Python is now a 3-source skill: ATS(0.90 base) + CSV(indep 0.5 -> +0.025)
+    # + GitHub repo language (indep 1.0 -> +0.05) = 0.975. GitHub's checkout-service
+    # repo (Python, non-fork) adds the third corroborating source.
+    assert skills["Python"] == pytest.approx(0.975, abs=1e-6)
+    # Go comes only from Aisha's GitHub repos (canonical alias) -> 0.70
+    assert skills["Go"] == pytest.approx(0.70, abs=1e-6)
     # C++ only in CSV (canonical, structured) -> 0.80
     assert skills["C++"] == pytest.approx(0.80, abs=1e-6)
 

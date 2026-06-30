@@ -16,11 +16,29 @@
       "linkedin": null,
       "github": "https://github.com/jlee",
       "portfolio": null,
-      "other": []
+      "other": [
+        "https://github.com/jlee/task-queue",
+        "https://github.com/jlee/api-gateway"
+      ]
     },
     "headline": "Backend developer.",
     "years_experience": null,
-    "skills": [],
+    "skills": [
+      {
+        "name": "Go",
+        "confidence": 0.7,
+        "sources": [
+          "github_api"
+        ]
+      },
+      {
+        "name": "Python",
+        "confidence": 0.7,
+        "sources": [
+          "github_api"
+        ]
+      }
+    ],
     "experience": [
       {
         "company": "Acme Corp",
@@ -54,6 +72,11 @@
         "method": "github:field"
       },
       {
+        "field": "skills",
+        "source": "github_api",
+        "method": "normalize:skill-alias"
+      },
+      {
         "field": "experience.company",
         "source": "github_api",
         "method": "github:field"
@@ -84,21 +107,25 @@
       "linkedin": null,
       "github": "https://github.com/aishakhan",
       "portfolio": "https://aisha.dev",
-      "other": []
+      "other": [
+        "https://github.com/aishakhan/payments-api",
+        "https://github.com/aishakhan/checkout-service"
+      ]
     },
     "headline": "Senior Software Engineer. Payments & infrastructure.",
     "years_experience": 8.33,
     "skills": [
       {
-        "name": "Node.js",
-        "confidence": 0.925,
+        "name": "Python",
+        "confidence": 0.9750000000000001,
         "sources": [
           "ats_json",
+          "github_api",
           "recruiter_csv"
         ]
       },
       {
-        "name": "Python",
+        "name": "Node.js",
         "confidence": 0.925,
         "sources": [
           "ats_json",
@@ -139,6 +166,13 @@
         "confidence": 0.8,
         "sources": [
           "recruiter_csv"
+        ]
+      },
+      {
+        "name": "Go",
+        "confidence": 0.7,
+        "sources": [
+          "github_api"
         ]
       }
     ],
@@ -236,6 +270,11 @@
       {
         "field": "skills",
         "source": "ats_json",
+        "method": "normalize:skill-alias"
+      },
+      {
+        "field": "skills",
+        "source": "github_api",
         "method": "normalize:skill-alias"
       },
       {
@@ -383,15 +422,19 @@
       "linkedin": null,
       "github": "https://github.com/sri-krishna",
       "portfolio": null,
-      "other": []
+      "other": [
+        "https://github.com/sri-krishna/distributed-scheduler",
+        "https://github.com/sri-krishna/k8s-operators"
+      ]
     },
     "headline": "Engineering Manager. Distributed systems.",
     "years_experience": null,
     "skills": [
       {
         "name": "Java",
-        "confidence": 0.8,
+        "confidence": 0.8500000000000001,
         "sources": [
+          "github_api",
           "recruiter_csv"
         ]
       },
@@ -414,6 +457,13 @@
         "confidence": 0.7000000000000001,
         "sources": [
           "recruiter_csv"
+        ]
+      },
+      {
+        "name": "Go",
+        "confidence": 0.7,
+        "sources": [
+          "github_api"
         ]
       }
     ],
@@ -467,6 +517,11 @@
       {
         "field": "skills",
         "source": "recruiter_csv",
+        "method": "normalize:skill-alias"
+      },
+      {
+        "field": "skills",
+        "source": "github_api",
         "method": "normalize:skill-alias"
       },
       {

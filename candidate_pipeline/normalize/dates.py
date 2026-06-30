@@ -29,7 +29,11 @@ def normalize_date(raw) -> str | None:
 
     m = _YEAR_MONTH.match(s)
     if m:
-        return f"{m.group(1)}-{int(m.group(2)):02d}"
+        month = int(m.group(2))
+        if 1 <= month <= 12:
+            return f"{m.group(1)}-{month:02d}"
+        # an out-of-range month (e.g. "2020-13") is not a real date: fall through
+        # to free-text parsing, which rejects it rather than inventing a month.
 
     # Free text: detect which fields were actually present using two differing
     # defaults. A field that ends up equal across both parses was supplied;

@@ -1,0 +1,43 @@
+[
+  {
+    "login": 12345,
+    "name": ["Array", "Name"],
+    "company": { "nested": "object" },
+    "location": 999,
+    "bio": null,
+    "email": null,
+    "updated_at": "2025-01-01T00:00:00Z",
+    "repos": [
+      "not-an-object",
+      { "name": "ok-repo", "language": 42, "fork": "yes", "stargazers_count": "lots", "html_url": "https://github.com/x/ok-repo" },
+      { "name": "real-one", "language": "Rust", "fork": false, "stargazers_count": 7, "html_url": "https://github.com/x/real-one" }
+    ]
+  },
+  {
+    "login": "Mixed-Case-Login",
+    "name": "Mixed Case Login",
+    "company": "@acme",
+    "location": "Remote",
+    "bio": "Builder.",
+    "email": "mixed.case@example.com",
+    "updated_at": "2024-09-01T00:00:00Z"
+  },
+  {
+    "login": "shared-email-a",
+    "name": "Alice Different",
+    "company": "Org A",
+    "location": "Unknown",
+    "bio": "Person A.",
+    "email": "shared.inbox@example.com",
+    "updated_at": "2025-02-01T00:00:00Z"
+  },
+  {
+    "login": "shared-email-b",
+    "name": "Bob Unrelated",
+    "company": "Org B",
+    "location": "Unknown",
+    "bio": "Person B.",
+    "email": "shared.inbox@example.com",
+    "updated_at": "2025-02-02T00:00:00Z"
+  }
+]

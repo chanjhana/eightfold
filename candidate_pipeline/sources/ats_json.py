@@ -27,9 +27,17 @@ class AtsJsonAdapter(SourceAdapter):
     source_name = "ats_json"
 
     def _load_impl(self, path: str) -> list[SourceRecord]:
-        with open(path, encoding="utf-8") as fh:
+        with open(path, encoding="utf-8-sig") as fh:
             data = json.load(fh)
-        return [self._obj_to_record(obj, i) for i, obj in enumerate(data)]
+        records: list[SourceRecord] = []
+        for i, obj in enumerate(self._as_record_list(data)):
+            try:
+                if not isinstance(obj, dict):
+                    raise TypeError(f"expected object, got {type(obj).__name__}")
+                records.append(self._obj_to_record(obj, i))
+            except Exception as exc:  # noqa: BLE001 - one bad object must not drop the rest
+                self._record_skip(path, i, exc)
+        return records
 
     def _date_value(self, raw) -> SourceValue | None:
         norm = normalize_date(raw)
@@ -39,17 +47,22 @@ class AtsJsonAdapter(SourceAdapter):
 
     def _obj_to_record(self, obj: dict, index: int) -> SourceRecord:
         flags: list[Flag] = []
-        cand = obj.get("candidate", {})
+        # `.get(k, {})` only defaults on a MISSING key, not an explicit null —
+        # `or {}` covers both so a `"candidate": null` can't crash the record.
+        cand = obj.get("candidate") or {}
         name = cand.get("fullName")
 
-        emails = self._emails(cand.get("emails", []) or [], method="ats:path")
-        phones = self._phones(cand.get("phoneNumbers", []) or [], method="ats:path", flags=flags)
-        skills = self._skills(obj.get("skills", []) or [], flags=flags)
+        emails = self._emails(cand.get("emails") or [], method="ats:path")
+        phones = self._phones(cand.get("phoneNumbers") or [], method="ats:path", flags=flags)
+        skills = self._skills(obj.get("skills") or [], flags=flags)
 
-        current = obj.get("employment", {}).get("current", {}) or {}
+        employment = obj.get("employment") or {}
+        current = employment.get("current") or {}
 
         experience = []
-        for e in obj.get("experience", []) or []:
+        for e in obj.get("experience") or []:
+            if not isinstance(e, dict):
+                continue  # skip a non-object experience entry rather than crash
             experience.append(
                 SourceExperience(
                     company=_sv(e.get("employer"), e.get("employer"), "ats:path"),
@@ -61,7 +74,9 @@ class AtsJsonAdapter(SourceAdapter):
             )
 
         education = []
-        for ed in obj.get("education", []) or []:
+        for ed in obj.get("education") or []:
+            if not isinstance(ed, dict):
+                continue  # skip a non-object education entry rather than crash
             education.append(
                 SourceEducation(
                     institution=_sv(ed.get("school"), ed.get("school"), "ats:path"),

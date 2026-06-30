@@ -21,8 +21,12 @@ def build_adapter(
     default_region: str | None = None,
     live: bool = False,
 ) -> SourceAdapter:
+    # A key may carry an optional ":label" so several files of the same type can
+    # be ingested in one run (e.g. "csv:primary", "csv:backfill"). The label only
+    # disambiguates the input map; the base before ":" selects the adapter.
+    base = key.split(":", 1)[0]
     try:
-        cls = REGISTRY[key]
+        cls = REGISTRY[base]
     except KeyError:
         raise ValueError(f"unknown source key '{key}'; known: {sorted(REGISTRY)}") from None
     if cls is GithubApiAdapter:

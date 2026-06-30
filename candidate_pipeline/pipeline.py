@@ -32,6 +32,7 @@ def resolve_and_merge(
         records.extend(adapter.load(path))
 
     report.counts["records_in"] = len(records)
+    report.counts["records_skipped"] = sum(1 for s in report.skips if s.stage.startswith("record:"))
     clusters = IdentityResolver().resolve(records)
     report.counts["clusters"] = len(clusters)
 

@@ -71,6 +71,39 @@ def test_github_live_flag_is_noop(github_path):
     assert len(recs) == 4  # --live defaults to the fixture, never hits network
 
 
+def test_github_repo_languages_become_canonical_skills(github_path):
+    report = RunReport()
+    recs = GithubApiAdapter(report=report).load(github_path)
+    by_login = {r.github_login.value: r for r in recs}
+    aisha_skills = {s.value for s in by_login["aishakhan"].skills}
+    # non-fork repo languages canonicalize through the shared alias map
+    assert {"Go", "Python"} <= aisha_skills
+    # the Shell repo is a fork -> excluded from languages
+    assert "Shell" not in aisha_skills
+
+
+def test_github_forks_excluded_from_skills_and_links(github_path):
+    report = RunReport()
+    recs = GithubApiAdapter(report=report).load(github_path)
+    by_login = {r.github_login.value: r for r in recs}
+    # ghost-coder's only repo is a fork -> no languages, no notable repos
+    ghost = by_login["ghost-coder"]
+    assert ghost.skills == []
+    assert "notable_repos" not in ghost.link_hints
+
+
+def test_github_notable_repos_are_top_two_by_stars(github_path):
+    report = RunReport()
+    recs = GithubApiAdapter(report=report).load(github_path)
+    by_login = {r.github_login.value: r for r in recs}
+    # sri-krishna: 3 non-fork repos, top 2 by stars are the Go ones (230, 95)
+    notable = by_login["sri-krishna"].link_hints["notable_repos"]
+    assert notable == [
+        "https://github.com/sri-krishna/distributed-scheduler",
+        "https://github.com/sri-krishna/k8s-operators",
+    ]
+
+
 def test_bad_source_skips_not_crashes(tmp_path):
     report = RunReport()
     bad = tmp_path / "broken.json"

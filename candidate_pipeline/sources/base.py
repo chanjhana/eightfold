@@ -37,6 +37,28 @@ class SourceAdapter(ABC):
     def _load_impl(self, path: str) -> list[SourceRecord]:
         ...
 
+    # ---- shared robustness helpers -----------------------------------------
+
+    @staticmethod
+    def _as_record_list(data) -> list:
+        """Tolerate a top-level shape that is a single object or a list.
+
+        Many real ATS / API payloads are a single object rather than an array;
+        wrapping it keeps one odd shape from skipping the whole source. Anything
+        that is neither a list nor a dict yields no records (the caller logs it).
+        """
+        if isinstance(data, list):
+            return data
+        if isinstance(data, dict):
+            return [data]
+        return []
+
+    def _record_skip(self, path: str, index: int, exc: Exception) -> None:
+        """Log a per-record skip so one poison record never drops the rest."""
+        self.report.add_skip(
+            f"record:{self.source_name}", f"{path}#{index}", f"{type(exc).__name__}: {exc}"
+        )
+
     # ---- shared normalization helpers --------------------------------------
 
     def _emails(self, raws, method: str) -> list[SourceValue]:

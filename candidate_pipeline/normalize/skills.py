@@ -64,7 +64,11 @@ def canonicalize_skill(raw: str) -> SkillResult:
 
 
 def split_skills(s: str) -> list[str]:
-    """Split a comma/semicolon-separated skills string into trimmed tokens."""
+    """Split a skills string into trimmed tokens.
+
+    Recruiters use a range of separators — comma, semicolon, pipe, newline, tab.
+    `/` is deliberately NOT a separator (it would split "CI/CD", "TCP/IP").
+    """
     if not s:
         return []
-    return [tok.strip() for tok in re.split(r"[,;]", str(s)) if tok.strip()]
+    return [tok.strip() for tok in re.split(r"[,;|\n\t]", str(s)) if tok.strip()]

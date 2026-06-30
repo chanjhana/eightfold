@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 OutputType = Literal["string", "string[]", "number", "object", "object[]"]
 OnMissing = Literal["null", "omit", "error"]
@@ -38,3 +38,16 @@ class ProjectionConfig(BaseModel):
     on_missing: OnMissing = "null"  # global default
     include_flags: bool = False
     fields: list[FieldSpec]
+
+    @model_validator(mode="after")
+    def _validate_paths(self) -> "ProjectionConfig":
+        seen: set[str] = set()
+        for spec in self.fields:
+            if not spec.path or not spec.path.strip():
+                raise ValueError("field 'path' must be a non-empty string")
+            if spec.path in seen:
+                # a duplicate output path would silently overwrite the earlier
+                # field (data loss) — reject it at load time instead.
+                raise ValueError(f"duplicate output path '{spec.path}'")
+            seen.add(spec.path)
+        return self

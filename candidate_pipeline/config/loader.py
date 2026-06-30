@@ -15,7 +15,7 @@ _CONFIG_DIR = Path(candidate_pipeline.__file__).parent / "data" / "configs"
 
 
 def load_config(path: str) -> ProjectionConfig:
-    with open(path, encoding="utf-8") as fh:
+    with open(path, encoding="utf-8-sig") as fh:  # utf-8-sig tolerates a BOM
         data = json.load(fh)
     return ProjectionConfig.model_validate(data)
 

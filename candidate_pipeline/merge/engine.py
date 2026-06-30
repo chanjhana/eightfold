@@ -180,7 +180,11 @@ class MergeEngine:
                 value["portfolio"] = r.link_hints["blog"]
             if r.link_hints.get("linkedin"):
                 value["linkedin"] = r.link_hints["linkedin"]
-        if value["github"] or value["portfolio"] or value["linkedin"]:
+            for url in r.link_hints.get("notable_repos") or []:
+                if url and url not in value["other"]:
+                    value["other"].append(url)
+                    sources.append(r.source_name)
+        if value["github"] or value["portfolio"] or value["linkedin"] or value["other"]:
             return TrackedValue(value=value, confidence=None, sources=sorted(set(sources)))
         return None
 
@@ -312,11 +316,16 @@ class MergeEngine:
 
 # ---- years_experience (PRD §8.3) ------------------------------------------
 
-def _to_month_index(partial: str, as_of: date) -> int:
-    # "YYYY" -> January; "YYYY-MM" -> that month
-    parts = partial.split("-")
-    year = int(parts[0])
-    month = int(parts[1]) if len(parts) > 1 else 1
+def _to_month_index(partial: str, as_of: date) -> int | None:
+    # "YYYY" -> January; "YYYY-MM" -> that month. Returns None on anything that
+    # isn't numeric (defensive depth: the adapter normalizes dates upstream, but
+    # a malformed value here is skipped, never raised).
+    parts = str(partial).split("-")
+    try:
+        year = int(parts[0])
+        month = int(parts[1]) if len(parts) > 1 else 1
+    except (ValueError, IndexError):
+        return None
     return year * 12 + month
 
 
@@ -327,8 +336,12 @@ def _years_experience(experience: list[TrackedExperience], as_of: date) -> float
         if not e.start or not e.start.value:
             continue
         start = _to_month_index(e.start.value, as_of)
+        if start is None:
+            continue  # unparseable start -> skip this interval, don't invent one
         if e.end and e.end.value:
             end = _to_month_index(e.end.value, as_of)
+            if end is None:
+                end = as_of_idx  # unparseable end -> treat as ongoing
         else:
             end = as_of_idx  # ongoing
         if end >= start:

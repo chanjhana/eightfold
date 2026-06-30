@@ -85,7 +85,10 @@ def _phone_set(r: SourceRecord) -> set[str]:
 
 
 def _login(r: SourceRecord) -> str | None:
-    return r.github_login.value if r.github_login else None
+    # Lower-case so "Sri-Krishna" and "sri-krishna" block/link as one identity.
+    if r.github_login and r.github_login.value:
+        return str(r.github_login.value).lower()
+    return None
 
 
 class _UnionFind:

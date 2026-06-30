@@ -1,0 +1,14 @@
+{
+  "candidate": {
+    "fullName": "Single Object",
+    "emails": ["single.object@example.com"],
+    "phoneNumbers": ["+442071838750"]
+  },
+  "employment": { "current": { "employer": "SoloCorp", "role": "Staff Engineer" } },
+  "experience": [
+    { "employer": "SoloCorp", "role": "Staff Engineer", "startDate": "2022-05", "endDate": "Present" }
+  ],
+  "skills": ["Python", "Rust", "Kubernetes"],
+  "location": { "city": "Berlin", "country": "Germany" },
+  "last_updated": "2025-06-01T00:00:00Z"
+}
