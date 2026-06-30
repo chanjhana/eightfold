@@ -47,6 +47,24 @@ def test_multi_valued_skills_union_and_canonicalized(built_profiles):
     assert skills["C++"] == pytest.approx(0.80, abs=1e-6)
 
 
+def test_repos_surface_on_canonical_profile(built_profiles):
+    profiles, _ = built_profiles
+    a = profiles["Aisha Khan"]
+    # candidate's own (non-fork) repos, star-sorted, on the canonical profile
+    assert [(r.name, r.language, r.stars) for r in a.repos] == [
+        ("payments-api", "Go", 142),
+        ("checkout-service", "Python", 58),
+    ]
+    # and their URLs surfaced as profile links
+    assert a.links.value["other"] == [
+        "https://github.com/aishakhan/payments-api",
+        "https://github.com/aishakhan/checkout-service",
+    ]
+    # Pat Morgan's only repo is a fork -> no repos, no repo links
+    pat = profiles["Pat Morgan"]
+    assert pat.repos == []
+
+
 def test_emails_union_confidence_sorted(built_profiles):
     profiles, _ = built_profiles
     a = profiles["Aisha Khan"]

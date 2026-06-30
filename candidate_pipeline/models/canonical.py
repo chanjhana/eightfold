@@ -39,6 +39,18 @@ class Flag(BaseModel):
     detail: str
 
 
+class RepoEntry(BaseModel):
+    """A GitHub repository (from `/users/{login}/repos`), trimmed to the fields we
+    use. On the canonical profile these are the candidate's own (non-fork) repos,
+    star-sorted; the `language` also feeds `skills` and the URL feeds `links`."""
+
+    name: str
+    language: str | None = None
+    stars: int = 0
+    url: str | None = None
+    fork: bool = False
+
+
 class TrackedExperience(BaseModel):
     company: TrackedValue[str] | None = None
     title: TrackedValue[str] | None = None
@@ -65,6 +77,7 @@ class CanonicalProfile(BaseModel):
     skills: list[TrackedValue[str]] = Field(default_factory=list)
     experience: list[TrackedExperience] = Field(default_factory=list)
     education: list[TrackedEducation] = Field(default_factory=list)
+    repos: list[RepoEntry] = Field(default_factory=list)  # GitHub non-fork repos, star-sorted
     years_experience: float | None = None
     overall_confidence: float = 0.0
     flags: list[Flag] = Field(default_factory=list)

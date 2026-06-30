@@ -93,7 +93,12 @@ def build_parser() -> argparse.ArgumentParser:
     t.add_argument("--default-region", default=None, help="ISO region for phones without a country code")
     t.add_argument("--out", default=None, help="write output JSON here")
     t.add_argument("--report", default=None, help="write the RunReport JSON here")
-    t.add_argument("--live", action="store_true", help="no-op GitHub stub (defaults to fixture)")
+    t.add_argument(
+        "--live",
+        action="store_true",
+        help="enrich GitHub records from the real REST API (fixture is the fallback; "
+        "set GITHUB_TOKEN to raise the rate limit)",
+    )
     t.add_argument("--strict", action="store_true",
                    help="exit non-zero if any profile is dropped at the output stage "
                         "(on_missing:error / required miss / invalid output)")

@@ -45,7 +45,10 @@ uv run candidate-pipeline transform \
 - `--config cfg.json` swaps the projection layer (default: built-in PS-style schema).
 - `--default-region IN` resolves phones that lack a country code (e.g. the recruiter CSV).
 - `--as-of YYYY-MM-DD` pins recency decay and `years_experience` (omit → today).
-- `--live` is a **no-op GitHub stub** that defaults to the fixture, so the demo never flakes.
+- `--live` **enriches each GitHub record from the real REST API** (`GET /users/{login}`
+  + `/users/{login}/repos`), falling back to the fixture on any error so the run never
+  flakes. Set `GITHUB_TOKEN` to lift the unauthenticated 60/hour rate limit to 5,000/hour.
+  Omit `--live` (the default) for a fully offline run off the fixtures.
 - `--report` writes the batch audit trail (skips / conflicts / assumptions / counts).
 - `--strict` makes the run **exit non-zero** if any profile is dropped at the output
   stage (an `on_missing: "error"` / required miss, or invalid output). Without it, such a
@@ -100,12 +103,15 @@ Two structured sources (**recruiter CSV**, **ATS JSON**) and one unstructured on
   `language` canonicalizes through the same alias map as any CSV/ATS skill and
   joins `skills`; a language that matches an already-listed skill **corroborates**
   it (e.g. Aisha's Python becomes a 3-source skill). The top-2-by-stars non-fork
-  repos surface as `links.other[]`.
-- **Forks are excluded** from both languages and links — a fork's language and
-  star count reflect the upstream project, not the candidate's own work.
+  repos surface as `links.other[]`, and the full non-fork repo list (star-sorted)
+  is carried as `CanonicalProfile.repos` (`{name, language, stars, url}`).
+- **Forks are excluded** from all three — a fork's language and star count reflect
+  the upstream project, not the candidate's own work.
 
-`--live` is a no-op stub that always reads the fixture (no network at runtime),
-so the API shape is honored without the demo ever flaking.
+By default the run is fully offline off the fixtures. `--live` opts into the real
+REST API (`GET /users/{login}` + `/repos`), parsing the live JSON through the
+*same* `_obj_to_record` path; any failure falls back to the fixture record (logged
+to the report), so the API shape is honored without the demo ever flaking.
 
 ---
 

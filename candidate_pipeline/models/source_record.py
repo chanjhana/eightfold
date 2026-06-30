@@ -11,7 +11,7 @@ from typing import Any
 
 from pydantic import BaseModel, Field
 
-from candidate_pipeline.models.canonical import Flag
+from candidate_pipeline.models.canonical import Flag, RepoEntry
 
 
 class SourceValue(BaseModel):
@@ -57,6 +57,7 @@ class SourceRecord(BaseModel):
     skills: list[SourceValue] = Field(default_factory=list)
     experience: list[SourceExperience] = Field(default_factory=list)
     education: list[SourceEducation] = Field(default_factory=list)
+    repos: list[RepoEntry] = Field(default_factory=list)  # raw GitHub repos (incl. forks)
 
     # link hints (raw): {"github_login": ..., "blog": ..., "linkedin": ...}
     link_hints: dict = Field(default_factory=dict)

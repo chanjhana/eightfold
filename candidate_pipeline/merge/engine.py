@@ -20,6 +20,7 @@ from candidate_pipeline.merge.strategies import (
 from candidate_pipeline.models.canonical import (
     CanonicalProfile,
     Flag,
+    RepoEntry,
     TrackedEducation,
     TrackedExperience,
     TrackedValue,
@@ -101,6 +102,7 @@ class MergeEngine:
         location = self._merge_location(cluster)
         headline = self._merge_headline(cluster)
         links = self._merge_links(cluster)
+        repos = self._merge_repos(cluster)
         experience, current_entry = self._merge_experience(cluster, cid, flags)
         education = self._merge_education(cluster)
         years = _years_experience(experience, self.as_of)
@@ -130,6 +132,7 @@ class MergeEngine:
             skills=skills,
             experience=experience,
             education=education,
+            repos=repos,
             years_experience=years,
             overall_confidence=round(overall, 6),
             flags=flags,
@@ -187,6 +190,21 @@ class MergeEngine:
         if value["github"] or value["portfolio"] or value["linkedin"] or value["other"]:
             return TrackedValue(value=value, confidence=None, sources=sorted(set(sources)))
         return None
+
+    def _merge_repos(self, cluster) -> list[RepoEntry]:
+        """Union the candidate's own (non-fork) repos across the cluster, dedup by
+        URL (else name), star-sorted. Only GitHub records carry repos today."""
+        out: list[RepoEntry] = []
+        seen: set = set()
+        for r in cluster:
+            for repo in r.repos:
+                key = repo.url or repo.name
+                if key in seen:
+                    continue
+                seen.add(key)
+                out.append(repo)
+        out.sort(key=lambda e: (-e.stars, e.name))
+        return out
 
     def _merge_experience(self, cluster, cid: str, flags: list[Flag]):
         cur_company, cur_title, cur_start, cur_summary = [], [], [], []

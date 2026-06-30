@@ -6,6 +6,8 @@
     { "path": "primary_email", "from": "emails[0]", "type": "string", "required": true },
     { "path": "primary_phone", "from": "phones[0]", "type": "string", "normalize": "E164" },
     { "path": "location", "type": "object", "include_provenance": true },
-    { "path": "skill_names", "from": "skills[].name", "type": "string[]", "normalize": "canonical" }
+    { "path": "skill_names", "from": "skills[].name", "type": "string[]", "normalize": "canonical" },
+    { "path": "repos", "type": "object[]" },
+    { "path": "top_repo", "from": "repos[0].name", "type": "string" }
   ]
 }

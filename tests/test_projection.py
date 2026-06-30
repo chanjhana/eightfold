@@ -51,6 +51,11 @@ def test_custom_config_renames_and_inline_confidence(configs_dir, built_profiles
     assert "Python" in out["skill_names"] and "C++" in out["skill_names"]
     # include_provenance on location
     assert "provenance" in out["location"]
+    # repos projected as object[]; star-sorted, fork excluded
+    repo_names = [r["name"] for r in out["repos"]]
+    assert repo_names == ["payments-api", "checkout-service"]
+    assert "dotfiles" not in repo_names  # the fork is excluded
+    assert out["top_repo"] == "payments-api"  # repos[0].name
 
 
 def test_from_defaults_to_path(built_profiles):

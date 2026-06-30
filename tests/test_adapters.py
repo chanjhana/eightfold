@@ -104,6 +104,51 @@ def test_github_notable_repos_are_top_two_by_stars(github_path):
     ]
 
 
+def test_github_raw_repos_populated_star_sorted_no_forks(github_path):
+    report = RunReport()
+    recs = GithubApiAdapter(report=report).load(github_path)
+    by_login = {r.github_login.value: r for r in recs}
+    aisha = by_login["aishakhan"]
+    assert [(r.name, r.stars) for r in aisha.repos] == [
+        ("payments-api", 142),
+        ("checkout-service", 58),
+    ]  # star-sorted, the fork (dotfiles) excluded
+    # ghost-coder's only repo is a fork -> no repo entries
+    assert by_login["ghost-coder"].repos == []
+
+
+def test_github_live_success_overlays_api_data(monkeypatch, github_path):
+    """--live replaces fixture data with the API response (parsed identically)."""
+    def fake_api_get(endpoint):
+        if endpoint.startswith("/users/") and "/repos" not in endpoint:
+            return {"login": "aishakhan", "name": "Aisha (live)", "email": "live@example.com"}
+        return [{"name": "live-repo", "language": "Rust", "fork": False,
+                 "stargazers_count": 7, "html_url": "https://github.com/aishakhan/live-repo"}]
+
+    monkeypatch.setattr(GithubApiAdapter, "_api_get", staticmethod(fake_api_get))
+    report = RunReport()
+    recs = GithubApiAdapter(report=report, live=True).load(github_path)
+    by_login = {r.github_login.value: r for r in recs}
+    aisha = by_login["aishakhan"]
+    assert aisha.full_name.value == "Aisha (live)"  # live profile overlaid
+    assert [r.name for r in aisha.repos] == ["live-repo"]  # live repos parsed
+    assert any(s.value == "Rust" for s in aisha.skills)
+
+
+def test_github_live_failure_falls_back_to_fixture(monkeypatch, github_path):
+    """A live fetch error must not crash; the fixture record is used and logged."""
+    def boom(endpoint):
+        raise OSError("network down")
+
+    monkeypatch.setattr(GithubApiAdapter, "_api_get", staticmethod(boom))
+    report = RunReport()
+    recs = GithubApiAdapter(report=report, live=True).load(github_path)
+    assert len(recs) == 4  # never flakes
+    by_login = {r.github_login.value: r for r in recs}
+    assert by_login["aishakhan"].full_name.value == "Aisha Khan"  # fixture value
+    assert any(s.stage == "github:live" for s in report.skips)  # honest about fallback
+
+
 def test_bad_source_skips_not_crashes(tmp_path):
     report = RunReport()
     bad = tmp_path / "broken.json"

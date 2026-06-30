@@ -73,6 +73,10 @@ def _build_view(p: CanonicalProfile) -> dict:
         "skills": [_skill(s) for s in p.skills],
         "experience": [_exp(e) for e in p.experience],
         "education": [_edu(ed) for ed in p.education],
+        "repos": [
+            {"name": r.name, "language": r.language, "stars": r.stars, "url": r.url}
+            for r in p.repos
+        ],
         "years_experience": p.years_experience,
         "overall_confidence": p.overall_confidence,
     }

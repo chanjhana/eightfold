@@ -154,6 +154,22 @@
       }
     ],
     "education": [],
+    "repos": [
+      {
+        "name": "task-queue",
+        "language": "Python",
+        "stars": 34,
+        "url": "https://github.com/jlee/task-queue",
+        "fork": false
+      },
+      {
+        "name": "api-gateway",
+        "language": "Go",
+        "stars": 21,
+        "url": "https://github.com/jlee/api-gateway",
+        "fork": false
+      }
+    ],
     "years_experience": null,
     "overall_confidence": 0.435,
     "flags": []
@@ -747,6 +763,22 @@
         }
       }
     ],
+    "repos": [
+      {
+        "name": "payments-api",
+        "language": "Go",
+        "stars": 142,
+        "url": "https://github.com/aishakhan/payments-api",
+        "fork": false
+      },
+      {
+        "name": "checkout-service",
+        "language": "Python",
+        "stars": 58,
+        "url": "https://github.com/aishakhan/checkout-service",
+        "fork": false
+      }
+    ],
     "years_experience": 8.33,
     "overall_confidence": 0.885638,
     "flags": [
@@ -858,6 +890,7 @@
       }
     ],
     "education": [],
+    "repos": [],
     "years_experience": null,
     "overall_confidence": 0.295,
     "flags": []
@@ -1141,6 +1174,29 @@
       }
     ],
     "education": [],
+    "repos": [
+      {
+        "name": "distributed-scheduler",
+        "language": "Go",
+        "stars": 230,
+        "url": "https://github.com/sri-krishna/distributed-scheduler",
+        "fork": false
+      },
+      {
+        "name": "k8s-operators",
+        "language": "Go",
+        "stars": 95,
+        "url": "https://github.com/sri-krishna/k8s-operators",
+        "fork": false
+      },
+      {
+        "name": "raft-consensus",
+        "language": "Java",
+        "stars": 12,
+        "url": "https://github.com/sri-krishna/raft-consensus",
+        "fork": false
+      }
+    ],
     "years_experience": null,
     "overall_confidence": 0.785,
     "flags": [
