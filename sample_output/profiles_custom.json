@@ -1,0 +1,228 @@
+[
+  {
+    "name": {
+      "value": "Jordan Lee",
+      "confidence": 0.7
+    },
+    "primary_email": "jordan.lee@example.com",
+    "primary_phone": null,
+    "location": {
+      "city": null,
+      "region": null,
+      "country": null,
+      "raw": "Remote",
+      "provenance": [
+        {
+          "source": "github_api",
+          "method": "github:field",
+          "raw": "Remote",
+          "value": {
+            "city": null,
+            "region": null,
+            "country": null,
+            "raw": "Remote"
+          }
+        }
+      ]
+    },
+    "skill_names": [
+      "Go",
+      "Python"
+    ],
+    "repos": [
+      {
+        "name": "task-queue",
+        "language": "Python",
+        "stars": 34,
+        "url": "https://github.com/jlee/task-queue"
+      },
+      {
+        "name": "api-gateway",
+        "language": "Go",
+        "stars": 21,
+        "url": "https://github.com/jlee/api-gateway"
+      }
+    ],
+    "top_repo": "task-queue"
+  },
+  {
+    "name": {
+      "value": "Aisha Khan",
+      "confidence": 1.0
+    },
+    "primary_email": "aisha.khan@example.com",
+    "primary_phone": "+14155552671",
+    "location": {
+      "city": "San Francisco",
+      "region": "CA",
+      "country": "US",
+      "raw": {
+        "city": "San Francisco",
+        "region": "CA",
+        "country": "USA"
+      },
+      "provenance": [
+        {
+          "source": "recruiter_csv",
+          "method": "csv:column",
+          "raw": {
+            "city": "San Francisco",
+            "country": "USA"
+          },
+          "value": {
+            "city": "San Francisco",
+            "region": null,
+            "country": "US",
+            "raw": {
+              "city": "San Francisco",
+              "country": "USA"
+            }
+          }
+        },
+        {
+          "source": "ats_json",
+          "method": "ats:path",
+          "raw": {
+            "city": "San Francisco",
+            "region": "CA",
+            "country": "USA"
+          },
+          "value": {
+            "city": "San Francisco",
+            "region": "CA",
+            "country": "US",
+            "raw": {
+              "city": "San Francisco",
+              "region": "CA",
+              "country": "USA"
+            }
+          }
+        },
+        {
+          "source": "github_api",
+          "method": "github:field",
+          "raw": "San Francisco, USA",
+          "value": {
+            "city": null,
+            "region": null,
+            "country": "US",
+            "raw": "San Francisco, USA"
+          }
+        },
+        {
+          "source": "resume_pdf",
+          "method": "resume:heuristic",
+          "raw": "San Francisco, USA",
+          "value": {
+            "city": "San Francisco",
+            "region": null,
+            "country": "US",
+            "raw": "San Francisco, USA"
+          }
+        }
+      ]
+    },
+    "skill_names": [
+      "Python",
+      "Node.js",
+      "React",
+      "PostgreSQL",
+      ".NET",
+      "C#",
+      "C++",
+      "GraphQL",
+      "Kubernetes",
+      "Rust",
+      "Go"
+    ],
+    "repos": [
+      {
+        "name": "payments-api",
+        "language": "Go",
+        "stars": 142,
+        "url": "https://github.com/aishakhan/payments-api"
+      },
+      {
+        "name": "checkout-service",
+        "language": "Python",
+        "stars": 58,
+        "url": "https://github.com/aishakhan/checkout-service"
+      }
+    ],
+    "top_repo": "payments-api"
+  },
+  {
+    "name": {
+      "value": "Sri Krishna V",
+      "confidence": 0.75
+    },
+    "primary_email": "sri.k@personal.com",
+    "primary_phone": "+919876543210",
+    "location": {
+      "city": "Bengaluru",
+      "region": null,
+      "country": "IN",
+      "raw": {
+        "city": "Bengaluru",
+        "country": "India"
+      },
+      "provenance": [
+        {
+          "source": "recruiter_csv",
+          "method": "csv:column",
+          "raw": {
+            "city": "Bengaluru",
+            "country": "India"
+          },
+          "value": {
+            "city": "Bengaluru",
+            "region": null,
+            "country": "IN",
+            "raw": {
+              "city": "Bengaluru",
+              "country": "India"
+            }
+          }
+        },
+        {
+          "source": "github_api",
+          "method": "github:field",
+          "raw": "Bengaluru, India",
+          "value": {
+            "city": null,
+            "region": null,
+            "country": "IN",
+            "raw": "Bengaluru, India"
+          }
+        }
+      ]
+    },
+    "skill_names": [
+      "Java",
+      "Kubernetes",
+      "Spring Boot",
+      "Go"
+    ],
+    "repos": [
+      {
+        "name": "distributed-scheduler",
+        "language": "Go",
+        "stars": 230,
+        "url": "https://github.com/sri-krishna/distributed-scheduler"
+      },
+      {
+        "name": "k8s-operators",
+        "language": "Go",
+        "stars": 95,
+        "url": "https://github.com/sri-krishna/k8s-operators"
+      },
+      {
+        "name": "raft-consensus",
+        "language": "Java",
+        "stars": 12,
+        "url": "https://github.com/sri-krishna/raft-consensus"
+      }
+    ],
+    "top_repo": "distributed-scheduler"
+  }
+]

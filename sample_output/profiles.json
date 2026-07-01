@@ -1,0 +1,618 @@
+[
+  {
+    "candidate_id": "cand_0c9fd646cec9",
+    "full_name": "Jordan Lee",
+    "emails": [
+      "jordan.lee@example.com"
+    ],
+    "phones": [],
+    "location": {
+      "city": null,
+      "region": null,
+      "country": null,
+      "raw": "Remote"
+    },
+    "links": {
+      "linkedin": null,
+      "github": "https://github.com/jlee",
+      "portfolio": null,
+      "other": [
+        "https://github.com/jlee/task-queue",
+        "https://github.com/jlee/api-gateway"
+      ]
+    },
+    "headline": "Backend developer.",
+    "years_experience": null,
+    "skills": [
+      {
+        "name": "Go",
+        "confidence": 0.7,
+        "sources": [
+          "github_api"
+        ]
+      },
+      {
+        "name": "Python",
+        "confidence": 0.7,
+        "sources": [
+          "github_api"
+        ]
+      }
+    ],
+    "experience": [
+      {
+        "company": "Acme Corp",
+        "title": null,
+        "start": null,
+        "end": null,
+        "summary": null
+      }
+    ],
+    "education": [],
+    "overall_confidence": 0.435,
+    "provenance": [
+      {
+        "field": "full_name",
+        "source": "github_api",
+        "method": "github:field"
+      },
+      {
+        "field": "emails",
+        "source": "github_api",
+        "method": "github:field"
+      },
+      {
+        "field": "location",
+        "source": "github_api",
+        "method": "github:field"
+      },
+      {
+        "field": "headline",
+        "source": "github_api",
+        "method": "github:field"
+      },
+      {
+        "field": "skills",
+        "source": "github_api",
+        "method": "normalize:skill-alias"
+      },
+      {
+        "field": "experience.company",
+        "source": "github_api",
+        "method": "github:field"
+      }
+    ],
+    "flags": []
+  },
+  {
+    "candidate_id": "cand_51d897295bf5",
+    "full_name": "Aisha Khan",
+    "emails": [
+      "aisha.khan@example.com"
+    ],
+    "phones": [
+      "+14155552671"
+    ],
+    "location": {
+      "city": "San Francisco",
+      "region": "CA",
+      "country": "US",
+      "raw": {
+        "city": "San Francisco",
+        "region": "CA",
+        "country": "USA"
+      }
+    },
+    "links": {
+      "linkedin": null,
+      "github": "https://github.com/aishakhan",
+      "portfolio": "https://aisha.dev",
+      "other": [
+        "https://github.com/aishakhan/payments-api",
+        "https://github.com/aishakhan/checkout-service"
+      ]
+    },
+    "headline": "Senior Software Engineer",
+    "years_experience": 8.33,
+    "skills": [
+      {
+        "name": "Python",
+        "confidence": 1.0,
+        "sources": [
+          "ats_json",
+          "github_api",
+          "recruiter_csv",
+          "resume_pdf"
+        ]
+      },
+      {
+        "name": "Node.js",
+        "confidence": 0.9750000000000001,
+        "sources": [
+          "ats_json",
+          "recruiter_csv",
+          "resume_pdf"
+        ]
+      },
+      {
+        "name": "React",
+        "confidence": 0.9750000000000001,
+        "sources": [
+          "ats_json",
+          "recruiter_csv",
+          "resume_pdf"
+        ]
+      },
+      {
+        "name": "PostgreSQL",
+        "confidence": 0.9500000000000001,
+        "sources": [
+          "ats_json",
+          "resume_pdf"
+        ]
+      },
+      {
+        "name": ".NET",
+        "confidence": 0.8,
+        "sources": [
+          "recruiter_csv"
+        ]
+      },
+      {
+        "name": "C#",
+        "confidence": 0.8,
+        "sources": [
+          "recruiter_csv"
+        ]
+      },
+      {
+        "name": "C++",
+        "confidence": 0.8,
+        "sources": [
+          "recruiter_csv"
+        ]
+      },
+      {
+        "name": "GraphQL",
+        "confidence": 0.75,
+        "sources": [
+          "resume_pdf"
+        ]
+      },
+      {
+        "name": "Kubernetes",
+        "confidence": 0.75,
+        "sources": [
+          "resume_pdf"
+        ]
+      },
+      {
+        "name": "Rust",
+        "confidence": 0.75,
+        "sources": [
+          "resume_pdf"
+        ]
+      },
+      {
+        "name": "Go",
+        "confidence": 0.7,
+        "sources": [
+          "github_api"
+        ]
+      }
+    ],
+    "experience": [
+      {
+        "company": "Stripe",
+        "title": "Senior Software Engineer",
+        "start": "2021-03",
+        "end": null,
+        "summary": "Payments infrastructure for the API platform."
+      },
+      {
+        "company": "Shopify",
+        "title": "Software Engineer",
+        "start": "2018",
+        "end": "2021-02",
+        "summary": "Storefront rendering."
+      }
+    ],
+    "education": [
+      {
+        "institution": "MIT",
+        "degree": "BS",
+        "field": "Computer Science",
+        "end_year": 2018
+      }
+    ],
+    "overall_confidence": 0.906462,
+    "provenance": [
+      {
+        "field": "full_name",
+        "source": "recruiter_csv",
+        "method": "csv:column"
+      },
+      {
+        "field": "full_name",
+        "source": "ats_json",
+        "method": "ats:path"
+      },
+      {
+        "field": "full_name",
+        "source": "github_api",
+        "method": "github:field"
+      },
+      {
+        "field": "full_name",
+        "source": "resume_pdf",
+        "method": "resume:heuristic"
+      },
+      {
+        "field": "emails",
+        "source": "recruiter_csv",
+        "method": "csv:column"
+      },
+      {
+        "field": "emails",
+        "source": "ats_json",
+        "method": "ats:path"
+      },
+      {
+        "field": "emails",
+        "source": "github_api",
+        "method": "github:field"
+      },
+      {
+        "field": "emails",
+        "source": "resume_pdf",
+        "method": "resume:contact"
+      },
+      {
+        "field": "phones",
+        "source": "recruiter_csv",
+        "method": "normalize:e164"
+      },
+      {
+        "field": "phones",
+        "source": "ats_json",
+        "method": "normalize:e164"
+      },
+      {
+        "field": "phones",
+        "source": "resume_pdf",
+        "method": "normalize:e164"
+      },
+      {
+        "field": "location",
+        "source": "recruiter_csv",
+        "method": "csv:column"
+      },
+      {
+        "field": "location",
+        "source": "ats_json",
+        "method": "ats:path"
+      },
+      {
+        "field": "location",
+        "source": "github_api",
+        "method": "github:field"
+      },
+      {
+        "field": "location",
+        "source": "resume_pdf",
+        "method": "resume:heuristic"
+      },
+      {
+        "field": "headline",
+        "source": "github_api",
+        "method": "github:field"
+      },
+      {
+        "field": "headline",
+        "source": "resume_pdf",
+        "method": "resume:heuristic"
+      },
+      {
+        "field": "skills",
+        "source": "recruiter_csv",
+        "method": "normalize:skill-alias"
+      },
+      {
+        "field": "skills",
+        "source": "ats_json",
+        "method": "normalize:skill-alias"
+      },
+      {
+        "field": "skills",
+        "source": "github_api",
+        "method": "normalize:skill-alias"
+      },
+      {
+        "field": "skills",
+        "source": "resume_pdf",
+        "method": "normalize:skill-alias"
+      },
+      {
+        "field": "experience.company",
+        "source": "recruiter_csv",
+        "method": "csv:column"
+      },
+      {
+        "field": "experience.company",
+        "source": "ats_json",
+        "method": "ats:path"
+      },
+      {
+        "field": "experience.company",
+        "source": "github_api",
+        "method": "github:field"
+      },
+      {
+        "field": "experience.title",
+        "source": "recruiter_csv",
+        "method": "csv:column"
+      },
+      {
+        "field": "experience.title",
+        "source": "ats_json",
+        "method": "ats:path"
+      },
+      {
+        "field": "experience.start",
+        "source": "ats_json",
+        "method": "normalize:iso-date"
+      },
+      {
+        "field": "experience.summary",
+        "source": "ats_json",
+        "method": "ats:path"
+      },
+      {
+        "field": "experience.end",
+        "source": "ats_json",
+        "method": "normalize:iso-date"
+      },
+      {
+        "field": "education.institution",
+        "source": "ats_json",
+        "method": "ats:path"
+      },
+      {
+        "field": "education.degree",
+        "source": "ats_json",
+        "method": "ats:path"
+      },
+      {
+        "field": "education.field",
+        "source": "ats_json",
+        "method": "ats:path"
+      },
+      {
+        "field": "education.end_year",
+        "source": "ats_json",
+        "method": "ats:path"
+      }
+    ],
+    "flags": [
+      {
+        "kind": "conflict_resolved",
+        "detail": "current company: Stripe over ['Shopify']"
+      }
+    ]
+  },
+  {
+    "candidate_id": "cand_77292ce4fbd1",
+    "full_name": "Pat Morgan",
+    "emails": [],
+    "phones": [],
+    "location": {
+      "city": null,
+      "region": null,
+      "country": null,
+      "raw": "Unknown"
+    },
+    "links": {
+      "linkedin": null,
+      "github": "https://github.com/ghost-coder",
+      "portfolio": null,
+      "other": []
+    },
+    "headline": "I build things.",
+    "years_experience": null,
+    "skills": [],
+    "experience": [
+      {
+        "company": "Mystery Inc",
+        "title": null,
+        "start": null,
+        "end": null,
+        "summary": null
+      }
+    ],
+    "education": [],
+    "overall_confidence": 0.295,
+    "provenance": [
+      {
+        "field": "full_name",
+        "source": "github_api",
+        "method": "github:field"
+      },
+      {
+        "field": "location",
+        "source": "github_api",
+        "method": "github:field"
+      },
+      {
+        "field": "headline",
+        "source": "github_api",
+        "method": "github:field"
+      },
+      {
+        "field": "experience.company",
+        "source": "github_api",
+        "method": "github:field"
+      }
+    ],
+    "flags": []
+  },
+  {
+    "candidate_id": "cand_7caa0d54e30f",
+    "full_name": "Sri Krishna V",
+    "emails": [
+      "sri.k@personal.com"
+    ],
+    "phones": [
+      "+919876543210"
+    ],
+    "location": {
+      "city": "Bengaluru",
+      "region": null,
+      "country": "IN",
+      "raw": {
+        "city": "Bengaluru",
+        "country": "India"
+      }
+    },
+    "links": {
+      "linkedin": null,
+      "github": "https://github.com/sri-krishna",
+      "portfolio": null,
+      "other": [
+        "https://github.com/sri-krishna/distributed-scheduler",
+        "https://github.com/sri-krishna/k8s-operators"
+      ]
+    },
+    "headline": "Engineering Manager. Distributed systems.",
+    "years_experience": null,
+    "skills": [
+      {
+        "name": "Java",
+        "confidence": 0.8500000000000001,
+        "sources": [
+          "github_api",
+          "recruiter_csv"
+        ]
+      },
+      {
+        "name": "Kubernetes",
+        "confidence": 0.8,
+        "sources": [
+          "recruiter_csv"
+        ]
+      },
+      {
+        "name": "Spring Boot",
+        "confidence": 0.8,
+        "sources": [
+          "recruiter_csv"
+        ]
+      },
+      {
+        "name": "COBOL",
+        "confidence": 0.7000000000000001,
+        "sources": [
+          "recruiter_csv"
+        ]
+      },
+      {
+        "name": "Go",
+        "confidence": 0.7,
+        "sources": [
+          "github_api"
+        ]
+      }
+    ],
+    "experience": [
+      {
+        "company": "Infosys",
+        "title": "Engineering Manager",
+        "start": null,
+        "end": null,
+        "summary": null
+      }
+    ],
+    "education": [],
+    "overall_confidence": 0.785,
+    "provenance": [
+      {
+        "field": "full_name",
+        "source": "recruiter_csv",
+        "method": "csv:column"
+      },
+      {
+        "field": "full_name",
+        "source": "github_api",
+        "method": "github:field"
+      },
+      {
+        "field": "emails",
+        "source": "recruiter_csv",
+        "method": "csv:column"
+      },
+      {
+        "field": "phones",
+        "source": "recruiter_csv",
+        "method": "assume:default_region"
+      },
+      {
+        "field": "location",
+        "source": "recruiter_csv",
+        "method": "csv:column"
+      },
+      {
+        "field": "location",
+        "source": "github_api",
+        "method": "github:field"
+      },
+      {
+        "field": "headline",
+        "source": "github_api",
+        "method": "github:field"
+      },
+      {
+        "field": "skills",
+        "source": "recruiter_csv",
+        "method": "normalize:skill-alias"
+      },
+      {
+        "field": "skills",
+        "source": "github_api",
+        "method": "normalize:skill-alias"
+      },
+      {
+        "field": "skills",
+        "source": "recruiter_csv",
+        "method": "verbatim"
+      },
+      {
+        "field": "experience.company",
+        "source": "recruiter_csv",
+        "method": "csv:column"
+      },
+      {
+        "field": "experience.company",
+        "source": "github_api",
+        "method": "github:field"
+      },
+      {
+        "field": "experience.title",
+        "source": "recruiter_csv",
+        "method": "csv:column"
+      }
+    ],
+    "flags": [
+      {
+        "kind": "conflict_resolved",
+        "detail": "current company: Infosys over ['Google']"
+      },
+      {
+        "kind": "assumed_region",
+        "detail": "region=IN"
+      },
+      {
+        "kind": "uncanonicalized_skill",
+        "detail": "COBOL"
+      }
+    ]
+  }
+]
