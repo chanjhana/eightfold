@@ -10,17 +10,6 @@ Built for the Eightfold take-home (talent-intelligence domain).
 
 ---
 
-## Demo video
-
-> **[▶ Watch the 2-minute demo (TODO: link)]**
->
-> The recording runs the pipeline end-to-end on the sample inputs, shows the default
-> and custom-config outputs side-by-side, and walks through one design decision
-> (trust-ranked conflict resolution) and one edge case handled (per-record poison
-> resilience).
-
----
-
 ## Quick start
 
 Requires Python 3.11+. Uses [`uv`](https://github.com/astral-sh/uv) for environment
