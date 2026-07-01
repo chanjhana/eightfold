@@ -21,7 +21,7 @@ management, but it is a standard `pyproject.toml` package, so plain `pip` works 
 # with uv
 uv venv
 uv pip install -e ".[dev]"
-uv run pytest                     # 202 tests, all green
+uv run pytest                     # 220 tests, all green
 
 # or with pip
 python -m venv .venv && . .venv/Scripts/activate   # .venv/bin/activate on POSIX
@@ -59,6 +59,19 @@ uv run candidate-pipeline transform \
 ```bash
 uv run candidate-pipeline validate-config --config candidate_pipeline/data/configs/custom_config.json
 ```
+
+### Sample output
+
+Running the command above writes two files to the project root:
+- **`profiles.json`** — one projected object per resolved person (default schema: `candidate_id`, `full_name`, `emails`, `phones`, `location`, `links`, `headline`, `years_experience`, `skills`, `experience`, `education`, `overall_confidence`, `provenance`).
+- **`report.json`** — the batch audit trail: every skip (source / record level), conflict, assumption, and count.
+
+The pre-computed output for the bundled fixtures is checked in at **`tests/golden/`**:
+- [`tests/golden/profiles_default.json`](tests/golden/profiles_default.json) — the 4 projected profiles (default config).
+- [`tests/golden/canonical.json`](tests/golden/canonical.json) — the 4 full `CanonicalProfile` objects with all `TrackedValue` provenance/competitors.
+
+The pipeline resolves **4 people** from 8 source records across 4 inputs:
+Aisha Khan (4-source: CSV + ATS + GitHub + résumé), Sri Krishna V (2-source: CSV + GitHub), Jordan Lee (GitHub only), Pat Morgan (GitHub only, orphan — no email/login match).
 
 ---
 
@@ -156,7 +169,7 @@ The three engineered fixtures land almost exactly on the PRD's anchor targets:
 
 | Profile | Shape | Overall confidence | Target |
 |---|---|---|---|
-| Aisha Khan | 3-source, corroborated, one stale conflict | **0.886** | ~0.88 |
+| Aisha Khan | 4-source (CSV+ATS+GitHub+résumé), corroborated, one stale conflict | **0.906** | ~0.91 |
 | Sri Krishna V | 2-source, company conflict, name variants | **0.785** | ~0.78 |
 | Jordan Lee | sparse GitHub-only, stale | **0.435** | ~0.42 |
 
@@ -258,7 +271,7 @@ the country wins over the US state; vanity phone letters are converted by
 ## Testing
 
 ```bash
-uv run pytest            # 202 tests
+uv run pytest            # 220 tests
 ```
 
 - **Per-normalizer units** (phone, dates, country, skills incl. the C++/C#/.NET table, email)
