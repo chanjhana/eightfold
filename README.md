@@ -6,50 +6,31 @@ belong to the same person, merges them into one canonical profile per person
 with per-field provenance and confidence, and emits output through a
 runtime-configurable projection layer.
 
+![The transform command resolving four fixture sources into four candidate profiles, with per-profile confidence and conflict flags](docs/images/cli-summary.png)
+
+*Four people resolved from eight source records: confidence colored by tier,
+and the flags that record every assumption and resolved conflict.*
+
+> **Full documentation** lives in [`docs/`](docs/): a complete knowledge base
+> covering the architecture, every stage, the data model, all design decisions
+> and their rationale, edge-case handling, and how to extend the pipeline. Start
+> at the [docs index](docs/README.md).
+
 ---
-
-## Highlights
-
-- **Deterministic identity.** `candidate_id` is a SHA1 hash of the strongest
-  stable anchor available (email, then phone, then a name-derived key), so
-  re-running the pipeline on the same input always produces the same IDs and
-  the same clustering.
-- **A hard boundary at `CanonicalProfile`.** Everything upstream of merge
-  (adapters, normalizers, identity resolution, scoring) has no idea a
-  projection config exists. Only the `Projector` reads it. What the pipeline
-  knows about a person stays separate from how a given consumer wants it
-  shaped.
-- **Nothing is silently dropped in a conflict.** When two trusted sources
-  disagree on a single-valued field, the higher-trust source wins, but the
-  losing value is kept as a `competitor` in provenance and flagged, not
-  discarded.
-- **Config `normalize` is an assertion, not a recompute.** All real
-  normalization happens once, deterministically, upstream. A config that
-  declares `normalize: "E164"` is checked against that shape; a mismatch is
-  treated as missing rather than silently recomputed, which rules out
-  double-normalization and drift.
-- **The batch survives bad data.** A malformed CSV row, a corrupt PDF, a
-  scanned résumé with no extractable text: each is skipped and logged, never
-  a crash. About 95 of the 220 tests exist specifically to prove this against
-  torture fixtures (encoding issues, null nesting, non-object JSON, vanity
-  phone numbers, and more).
-- **Confidence reflects real corroboration.** Agreement across independent
-  sources raises confidence, values pulled from prose (a GitHub bio, résumé
-  text) are penalized relative to structured fields, and stale time-varying
-  fields (title, company) decay.
 
 ## Contents
 
-- [Highlights](#highlights)
 - [Running it end to end](#running-it-end-to-end)
 - [Sample output](#sample-output)
 - [CLI flags](#cli-flags)
+- [Testing](#testing)
+- [Highlights](#highlights)
 - [Architecture](#architecture)
+- [Documentation](#documentation)
 - [Design rationale](#design-rationale)
 - [Configuration](#configuration)
 - [Edge cases](#edge-cases)
 - [Robustness](#robustness)
-- [Testing](#testing)
 - [Descoped](#descoped)
 - [Known limitations](#known-limitations)
 
@@ -194,6 +175,37 @@ The pipeline resolves **4 people** from **8 source records** across 4 inputs:
 | Jordan Lee | GitHub only, sparse | **0.435** |
 | Pat Morgan | GitHub only, orphan (no shared identifier) | **0.295** |
 
+### Anatomy of a resolved profile
+
+Aisha Khan's record, merged from all four sources. Reading top to bottom:
+
+Identity and contact, then a normalized location (`USA` becomes ISO `US` while
+the original is preserved under `raw`), then links, with her top GitHub repos
+surfaced under `other`:
+
+![Aisha Khan profile: candidate_id, name, emails, phones, normalized location with raw preserved, and links](docs/images/profile-json1.png)
+
+Skills, confidence-sorted. Each skill's confidence tracks how many independent
+sources corroborate it: Python sits at `1.0` because all four sources name it,
+the three- and two-source skills follow, down to the single-source tail at
+`0.70`–`0.75`. (Middle entries collapsed.)
+
+![Aisha Khan skills, high end: Python at 1.0 from four sources, Node.js at 0.975, PostgreSQL at 0.95](docs/images/profile-json-skills1.png)
+
+![Aisha Khan skills, tail end: C++ at 0.8 from one source, Rust at 0.75, Go at 0.70](docs/images/profile-json-skills2.png)
+
+Experience and education. The two companies here, Stripe and Shopify, are what
+the conflict below resolves between; dates keep their original granularity, so
+a year-only value like `2018` is never padded to a fake month:
+
+![Aisha Khan profile: headline, years_experience, and the Stripe and Shopify experience entries with MIT education](docs/images/profile-json2.png)
+
+Overall confidence and the flags trail (the `provenance` array is collapsed
+here). The `conflict_resolved` flag records that Stripe won over Shopify by
+source trust rather than the losing value being silently dropped:
+
+![Aisha Khan profile: overall_confidence and a conflict_resolved flag recording Stripe chosen over Shopify](docs/images/profile-json3.png)
+
 Golden files used by the test suite are at [`tests/golden/`](tests/golden/).
 
 ---
@@ -211,6 +223,68 @@ Golden files used by the test suite are at [`tests/golden/`](tests/golden/).
 | `--report path` | Write the batch audit trail (skips, conflicts, assumptions, counts). |
 | `--pretty` | Pretty-print JSON output. |
 | `--strict` | Exit non-zero if any profile is dropped at the output stage (`on_missing: error` or a required miss). Graceful adapter skips are not strict failures. |
+
+---
+
+## Testing
+
+```bash
+uv run pytest            # 220 tests
+```
+
+| Test file | What it covers |
+|---|---|
+| `test_phone`, `test_dates`, `test_country`, `test_email`, `test_skills` | Per-normalizer units |
+| `test_adapters` | Each source adapter loads its fixture into `SourceRecord`s; live GitHub overlay and fallback; bad or missing source skips, never crashes; registry wiring |
+| `test_resume` | Résumé parser (`parse_resume_text`) and adapter units: clean and messy text, no fabrication, skill canonicalization, default-region phones, empty-text skip |
+| `test_identity` | Variant collapse, orphan isolation, same-block precision |
+| `test_merge` | Conflict resolution, asserted winner and confidence |
+| `test_confidence` | Formula units plus the three overall anchors |
+| `test_projection` | Default and custom config, assert-only normalize, `on_missing` |
+| `test_e2e` | Full run against golden JSON (canonical and default output) |
+| `test_garbage_source` | Malformed source, skip, batch continues |
+| `test_normalizers_edge` | Silent-wrong and fabrication class coverage |
+| `test_adapter_resilience` | Per-record survival, single-object ATS, null nesting, BOM, non-string scalars |
+| `test_core_logic_edge` | Identity (login case, transitive, shared email), merge safety, confidence clamps, malformed paths |
+| `test_config_validation` | Duplicate or empty path rejected, BOM config, bad type or `on_missing` |
+| `test_torture_e2e` | All edge fixtures at once: survives, schema-valid, no fabrication, deterministic |
+| `test_cli_strict` | `--strict` turns an output-stage drop into a non-zero exit |
+
+Golden files (`tests/golden/`) are the contract. Edge suites assert
+invariants (counts, "no crash", "missing becomes null"), not memorized
+outputs.
+
+---
+
+## Highlights
+
+- **Deterministic identity.** `candidate_id` is a SHA1 hash of the strongest
+  stable anchor available (email, then phone, then a name-derived key), so
+  re-running the pipeline on the same input always produces the same IDs and
+  the same clustering.
+- **A hard boundary at `CanonicalProfile`.** Everything upstream of merge
+  (adapters, normalizers, identity resolution, scoring) has no idea a
+  projection config exists. Only the `Projector` reads it. What the pipeline
+  knows about a person stays separate from how a given consumer wants it
+  shaped.
+- **Nothing is silently dropped in a conflict.** When two trusted sources
+  disagree on a single-valued field, the higher-trust source wins, but the
+  losing value is kept as a `competitor` in provenance and flagged, not
+  discarded.
+- **Config `normalize` is an assertion, not a recompute.** All real
+  normalization happens once, deterministically, upstream. A config that
+  declares `normalize: "E164"` is checked against that shape; a mismatch is
+  treated as missing rather than silently recomputed, which rules out
+  double-normalization and drift.
+- **The batch survives bad data.** A malformed CSV row, a corrupt PDF, a
+  scanned résumé with no extractable text: each is skipped and logged, never
+  a crash. About 95 of the 220 tests exist specifically to prove this against
+  torture fixtures (encoding issues, null nesting, non-object JSON, vanity
+  phone numbers, and more).
+- **Confidence reflects real corroboration.** Agreement across independent
+  sources raises confidence, values pulled from prose (a GitHub bio, résumé
+  text) are penalized relative to structured fields, and stale time-varying
+  fields (title, company) decay.
 
 ---
 
@@ -288,6 +362,32 @@ Two structured sources (recruiter CSV, ATS JSON) and two unstructured ones
 
 `--live` opts into the real GitHub REST API; any failure falls back to the
 fixture record (logged to the report), so a demo run never flakes.
+
+---
+
+## Documentation
+
+The [`docs/`](docs/) directory is a full knowledge base for the project, written
+so someone new can get up to speed quickly. It goes well beyond this README.
+
+| Document | Covers |
+|---|---|
+| [Overview](docs/01-overview.md) | Problem, goals, the three invariants, glossary |
+| [Architecture](docs/02-architecture.md) | Stages, module map, the `CanonicalProfile` boundary, data flow |
+| [Data model](docs/03-data-model.md) | `SourceRecord`, `CanonicalProfile`, `TrackedValue`, `RunReport` |
+| [Sources and adapters](docs/04-sources.md) | The adapter framework and the four input sources |
+| [Normalization](docs/05-normalization.md) | Phone, date, country, skill, and email normalizers |
+| [Identity resolution](docs/06-identity-resolution.md) | Blocking, linking, clustering |
+| [Merge and confidence](docs/07-merge-and-confidence.md) | Conflict resolution and confidence scoring |
+| [Projection and configuration](docs/08-projection-and-config.md) | Runtime output shaping and validation |
+| [CLI reference](docs/09-cli-reference.md) | Commands, flags, output modes, exit codes |
+| [Design decisions](docs/10-design-decisions.md) | Every significant choice and its rationale |
+| [Edge cases and robustness](docs/11-edge-cases.md) | Hostile-input handling and deliberate scope limits |
+| [Testing](docs/12-testing.md) | Test organization, golden files, invariants |
+| [Extending the pipeline](docs/13-extending.md) | Adding sources, normalizers, and output shapes |
+
+Each document links to the exact source files it describes and includes flow and
+architecture diagrams. Start at the [docs index](docs/README.md).
 
 ---
 
@@ -446,34 +546,6 @@ and about 95 edge tests probe the pipeline against hostile inputs:
 Genuinely hard problems are deliberately descoped and pinned by a test with
 a comment: shared inbox linking two different people, `Georgia` the country
 versus the US state, and vanity phone letters like `1-800-FLOWERS`.
-
----
-
-## Testing
-
-```bash
-uv run pytest            # 220 tests
-```
-
-| Test file | What it covers |
-|---|---|
-| `test_phone`, `test_dates`, `test_country`, `test_email`, `test_skills` | Per-normalizer units |
-| `test_identity` | Variant collapse, orphan isolation, same-block precision |
-| `test_merge` | Conflict resolution, asserted winner and confidence |
-| `test_confidence` | Formula units plus the three overall anchors |
-| `test_projection` | Default and custom config, assert-only normalize, `on_missing` |
-| `test_e2e` | Full run against golden JSON (canonical and default output) |
-| `test_garbage_source` | Malformed source, skip, batch continues |
-| `test_normalizers_edge` | Silent-wrong and fabrication class coverage |
-| `test_adapter_resilience` | Per-record survival, single-object ATS, null nesting, BOM, non-string scalars |
-| `test_core_logic_edge` | Identity (login case, transitive, shared email), merge safety, confidence clamps, malformed paths |
-| `test_config_validation` | Duplicate or empty path rejected, BOM config, bad type or `on_missing` |
-| `test_torture_e2e` | All edge fixtures at once: survives, schema-valid, no fabrication, deterministic |
-| `test_cli_strict` | `--strict` turns an output-stage drop into a non-zero exit |
-
-Golden files (`tests/golden/`) are the contract. Edge suites assert
-invariants (counts, "no crash", "missing becomes null"), not memorized
-outputs.
 
 ---
 

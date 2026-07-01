@@ -7,8 +7,14 @@ import json
 import sys
 from datetime import date, datetime
 
+from rich.console import Console
+
+from candidate_pipeline import console_report
 from candidate_pipeline.config.loader import DEFAULT_CONFIG, load_config
 from candidate_pipeline.pipeline import run_pipeline
+
+# All human-facing output goes to stderr; stdout is reserved for pure JSON.
+_console = Console(stderr=True)
 
 
 def _parse_inputs(pairs: list[str]) -> dict[str, str]:
@@ -31,7 +37,7 @@ def _cmd_transform(args: argparse.Namespace) -> int:
     inputs = _parse_inputs(args.inputs)
     config = load_config(args.config) if args.config else DEFAULT_CONFIG
 
-    outputs, _profiles, report = run_pipeline(
+    outputs, profiles, report = run_pipeline(
         inputs,
         config,
         default_region=args.default_region,
@@ -50,12 +56,17 @@ def _cmd_transform(args: argparse.Namespace) -> int:
         with open(args.report, "w", encoding="utf-8") as fh:
             json.dump(report.model_dump(), fh, indent=2, ensure_ascii=False)
 
-    print(
-        f"profiles_out={report.counts.get('profiles_out', 0)} "
-        f"records_in={report.counts.get('records_in', 0)} "
-        f"sources_skipped={report.counts.get('sources_skipped', 0)}",
-        file=sys.stderr,
-    )
+    # Rich summary for an interactive terminal; a stable plain line otherwise
+    # (piped output, CI, captured tests) so logs stay grep-able.
+    if _console.is_terminal:
+        console_report.render_run_summary(_console, profiles, report)
+    else:
+        print(
+            f"profiles_out={report.counts.get('profiles_out', 0)} "
+            f"records_in={report.counts.get('records_in', 0)} "
+            f"sources_skipped={report.counts.get('sources_skipped', 0)}",
+            file=sys.stderr,
+        )
 
     # --strict: a profile dropped at the OUTPUT stage (on_missing:"error" /
     # required miss / invalid output) is a hard failure. Adapter skips (a
@@ -65,7 +76,14 @@ def _cmd_transform(args: argparse.Namespace) -> int:
         output_skips = [s for s in report.skips if s.stage in ("projection", "validation")]
         if output_skips:
             for s in output_skips:
-                print(f"strict: dropped {s.identifier} at {s.stage}: {s.reason}", file=sys.stderr)
+                # markup=False: reasons contain literal "[...]" (e.g. competitor
+                # lists) that rich would otherwise try to parse as markup.
+                _console.print(
+                    f"strict: dropped {s.identifier} at {s.stage}: {s.reason}",
+                    style="red",
+                    markup=False,
+                    soft_wrap=True,
+                )
             return 2
     return 0
 
@@ -74,9 +92,9 @@ def _cmd_validate_config(args: argparse.Namespace) -> int:
     try:
         cfg = load_config(args.config)
     except Exception as exc:  # noqa: BLE001
-        print(f"INVALID: {exc}", file=sys.stderr)
+        console_report.render_config_invalid(_console, str(exc))
         return 1
-    print(f"OK: {len(cfg.fields)} fields, on_missing={cfg.on_missing}")
+    console_report.render_config_ok(_console, len(cfg.fields), cfg.on_missing)
     return 0
 
 

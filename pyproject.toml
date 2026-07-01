@@ -14,6 +14,7 @@ dependencies = [
     "python-dateutil",
     "pycountry",
     "pypdf>=6.14.2",
+    "rich>=13",
 ]
 
 [project.optional-dependencies]

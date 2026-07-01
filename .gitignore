@@ -30,3 +30,6 @@ scratch_*.json
 
 # Local tooling / skills
 docs/superpowers/
+
+# Deliverable PDF source (kept local; the PDF itself is committed)
+deliverable/design.html
