@@ -6,7 +6,7 @@ belong to the same person, merges them into one canonical profile per person
 with per-field provenance and confidence, and emits output through a
 runtime-configurable projection layer.
 
-<img src="docs/images/cli-summary.png" alt="The transform command resolving four fixture sources into four candidate profiles, with per-profile confidence and conflict flags" style="max-width: 500px; width: 100%;">
+<img src="docs/images/cli-summary.png" alt="The transform command resolving four fixture sources into four candidate profiles, with per-profile confidence and conflict flags" width="350">
 
 *Four people resolved from eight source records: confidence colored by tier,
 and the flags that record every assumption and resolved conflict.*
@@ -183,26 +183,24 @@ Identity and contact, then a normalized location (`USA` becomes ISO `US` while
 the original is preserved under `raw`), then links, with her top GitHub repos
 surfaced under `other`:
 
-<img src="docs/images/profile-json1.png" alt="Aisha Khan profile: candidate_id, name, emails, phones, normalized location with raw preserved, and links" style="max-width: 400px; width: 100%;">
+<img src="docs/images/profile-json1.png" alt="Aisha Khan profile: candidate_id, name, emails, phones, normalized location with raw preserved, and links" width="300">
 
 Skills, confidence-sorted. Each skill's confidence tracks how many independent
 sources corroborate it: Python sits at `1.0` because all four sources name it,
 the three- and two-source skills follow, down to the single-source tail at
 `0.70`–`0.75`. (Middle entries collapsed.)
 
-<div style="display: flex; gap: 10px; margin: 10px 0;">
-  <img src="docs/images/profile-json-skills1.png" alt="Aisha Khan skills, high end: Python at 1.0 from four sources, Node.js at 0.975, PostgreSQL at 0.95" style="max-width: 45%; width: 100%;">
-  <img src="docs/images/profile-json-skills2.png" alt="Aisha Khan skills, tail end: C++ at 0.8 from one source, Rust at 0.75, Go at 0.70" style="max-width: 45%; width: 100%;">
-</div>
+| | |
+|---|---|
+| <img src="docs/images/profile-json-skills1.png" alt="Aisha Khan skills, high end: Python at 1.0 from four sources, Node.js at 0.975, PostgreSQL at 0.95" width="280"> | <img src="docs/images/profile-json-skills2.png" alt="Aisha Khan skills, tail end: C++ at 0.8 from one source, Rust at 0.75, Go at 0.70" width="280"> |
 
 Experience and education. The two companies here, Stripe and Shopify, are what
 the conflict below resolves between; dates keep their original granularity, so
 a year-only value like `2018` is never padded to a fake month:
 
-<div style="display: flex; gap: 10px; margin: 10px 0;">
-  <img src="docs/images/profile-json2.png" alt="Aisha Khan profile: headline, years_experience, and the Stripe and Shopify experience entries with MIT education" style="max-width: 45%; width: 100%;">
-  <img src="docs/images/profile-json3.png" alt="Aisha Khan profile: overall_confidence and a conflict_resolved flag recording Stripe chosen over Shopify" style="max-width: 45%; width: 100%;">
-</div>
+| | |
+|---|---|
+| <img src="docs/images/profile-json2.png" alt="Aisha Khan profile: headline, years_experience, and the Stripe and Shopify experience entries with MIT education" width="280"> | <img src="docs/images/profile-json3.png" alt="Aisha Khan profile: overall_confidence and a conflict_resolved flag recording Stripe chosen over Shopify" width="280"> |
 
 Golden files used by the test suite are at [`tests/golden/`](tests/golden/).
 
