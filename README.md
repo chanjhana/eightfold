@@ -6,7 +6,7 @@ belong to the same person, merges them into one canonical profile per person
 with per-field provenance and confidence, and emits output through a
 runtime-configurable projection layer.
 
-<img src="docs/images/cli-summary.png" alt="The transform command resolving four fixture sources into four candidate profiles, with per-profile confidence and conflict flags" width="350">
+<img src="docs/images/cli-summary.png" alt="The transform command resolving four fixture sources into four candidate profiles, with per-profile confidence and conflict flags" width="600">
 
 *Four people resolved from eight source records: confidence colored by tier,
 and the flags that record every assumption and resolved conflict.*
