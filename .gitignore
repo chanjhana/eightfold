@@ -27,3 +27,6 @@ scratch_*.json
 *.swp
 .idea/
 .vscode/
+
+# Local tooling / skills
+docs/superpowers/

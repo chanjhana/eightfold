@@ -77,6 +77,9 @@ Same underlying data, different shape: fields are renamed (`full_name` → `name
 carries inline provenance. Pat Morgan is dropped (no email; `primary_email` is
 `required: true` in that config — demonstrating `on_missing: error`). No code change.
 
+> Shortcut: `./demo.sh` (default schema) and `./demo.sh custom` wrap the two runs
+> above, writing pretty JSON to `sample_output/` with a clean terminal.
+
 ### Validate a config file
 
 ```bash
