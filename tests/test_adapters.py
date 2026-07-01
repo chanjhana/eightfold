@@ -7,6 +7,7 @@ from candidate_pipeline.models.report import RunReport
 from candidate_pipeline.sources.recruiter_csv import RecruiterCsvAdapter
 from candidate_pipeline.sources.ats_json import AtsJsonAdapter
 from candidate_pipeline.sources.github_api import GithubApiAdapter
+from candidate_pipeline.sources.resume_pdf import ResumePdfAdapter
 from candidate_pipeline.sources.registry import build_adapter
 
 
@@ -149,6 +150,27 @@ def test_github_live_failure_falls_back_to_fixture(monkeypatch, github_path):
     assert any(s.stage == "github:live" for s in report.skips)  # honest about fallback
 
 
+def test_resume_pdf_and_txt_extract_same_fields(resume_path, resume_txt_path):
+    """The real PDF (via pypdf) and its .txt twin parse to the same lean fields."""
+    pdf = ResumePdfAdapter(report=RunReport(), default_region="IN").load(resume_path)[0]
+    txt = ResumePdfAdapter(report=RunReport(), default_region="IN").load(resume_txt_path)[0]
+    for r in (pdf, txt):
+        assert r.source_name == "resume_pdf"
+        assert r.full_name.value == "Aisha Khan"
+        assert r.primary_email() == "aisha.khan@example.com"
+        assert r.phones[0].value == "+14155552671"  # explicit +1 -> E.164
+        assert r.headline.value == "Senior Software Engineer"
+        assert r.location.value["country"] == "US"
+        assert {"Python", "React", "Rust"} <= {s.value for s in r.skills}
+
+
+def test_resume_corrupt_pdf_skips_not_crashes(edge_dir):
+    report = RunReport()
+    recs = ResumePdfAdapter(report=report).load(str(edge_dir / "resume_broken.pdf"))
+    assert recs == []
+    assert any(s.stage == "adapter:resume_pdf" for s in report.skips)
+
+
 def test_bad_source_skips_not_crashes(tmp_path):
     report = RunReport()
     bad = tmp_path / "broken.json"
@@ -171,3 +193,4 @@ def test_registry_builds_adapters():
     assert build_adapter("csv", report=report, default_region="IN").source_name == "recruiter_csv"
     assert build_adapter("ats", report=report).source_name == "ats_json"
     assert build_adapter("github", report=report).source_name == "github_api"
+    assert build_adapter("resume", report=report).source_name == "resume_pdf"

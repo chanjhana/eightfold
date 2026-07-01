@@ -19,9 +19,9 @@ def test_default_config_shapes(built_profiles):
     assert isinstance(out["years_experience"], (int, float))
     # skills as {name, confidence, sources[]}
     py = next(s for s in out["skills"] if s["name"] == "Python")
-    # 3-source corroboration: ATS(0.90) + CSV(+0.025) + GitHub repo lang(+0.05)
-    assert py["confidence"] == pytest.approx(0.975, abs=1e-6)
-    assert "ats_json" in py["sources"] and "github_api" in py["sources"]
+    # 4-source corroboration (ATS + CSV + GitHub repo + résumé) exceeds the cap -> 1.00
+    assert py["confidence"] == pytest.approx(1.00, abs=1e-6)
+    assert {"ats_json", "github_api", "resume_pdf"} <= set(py["sources"])
     # links assembled
     assert out["links"]["github"] == "https://github.com/aishakhan"
     # include_flags -> flags present
@@ -44,7 +44,8 @@ def test_custom_config_renames_and_inline_confidence(configs_dir, built_profiles
     out = project(profiles["Aisha Khan"], cfg)
     # renamed full_name -> name, include_confidence -> wrapped
     assert out["name"]["value"] == "Aisha Khan"
-    assert out["name"]["confidence"] == pytest.approx(0.975, abs=1e-6)
+    # 4-source agreement on the name -> corroboration cap -> 1.00
+    assert out["name"]["confidence"] == pytest.approx(1.00, abs=1e-6)
     assert out["primary_email"] == "aisha.khan@example.com"  # emails[0]
     assert out["primary_phone"] == "+14155552671"
     # skills[].name -> plain string[]

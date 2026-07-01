@@ -40,7 +40,17 @@ def github_path(fixtures_dir) -> str:
 
 
 @pytest.fixture
-def built_profiles(csv_path, ats_path, github_path):
+def resume_path(fixtures_dir) -> str:
+    return str(fixtures_dir / "resume.pdf")
+
+
+@pytest.fixture
+def resume_txt_path(fixtures_dir) -> str:
+    return str(fixtures_dir / "resume.txt")
+
+
+@pytest.fixture
+def built_profiles(csv_path, ats_path, github_path, resume_path):
     """Run adapters -> resolve -> merge over the fixtures; return {name: profile}.
 
     Pinned as_of so confidence/years are deterministic.
@@ -57,6 +67,7 @@ def built_profiles(csv_path, ats_path, github_path):
     records += build_adapter("csv", report=report, default_region="IN").load(csv_path)
     records += build_adapter("ats", report=report).load(ats_path)
     records += build_adapter("github", report=report).load(github_path)
+    records += build_adapter("resume", report=report, default_region="IN").load(resume_path)
 
     clusters = IdentityResolver().resolve(records)
     engine = MergeEngine(report=report, as_of=date(2026, 6, 30))

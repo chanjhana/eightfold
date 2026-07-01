@@ -91,9 +91,11 @@ def test_recency_decay_capped_at_20pct():
 
 # ---- §9.4 / §4.4 the three overall-confidence anchors ----------------------
 
-def test_anchor_clean_three_source_high(built_profiles):
+def test_anchor_clean_multi_source_high(built_profiles):
     profiles, _ = built_profiles
-    assert profiles["Aisha Khan"].overall_confidence == pytest.approx(0.88, abs=0.03)
+    # Aisha is corroborated by all four sources (ATS+CSV+GitHub+résumé); the extra
+    # agreement on name/email/phone lifts her overall to ~0.91.
+    assert profiles["Aisha Khan"].overall_confidence == pytest.approx(0.91, abs=0.03)
 
 
 def test_anchor_two_source_one_conflict_mid(built_profiles):

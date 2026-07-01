@@ -112,39 +112,43 @@
         "https://github.com/aishakhan/checkout-service"
       ]
     },
-    "headline": "Senior Software Engineer. Payments & infrastructure.",
+    "headline": "Senior Software Engineer",
     "years_experience": 8.33,
     "skills": [
       {
         "name": "Python",
-        "confidence": 0.9750000000000001,
+        "confidence": 1.0,
         "sources": [
           "ats_json",
           "github_api",
-          "recruiter_csv"
+          "recruiter_csv",
+          "resume_pdf"
         ]
       },
       {
         "name": "Node.js",
-        "confidence": 0.925,
+        "confidence": 0.9750000000000001,
         "sources": [
           "ats_json",
-          "recruiter_csv"
+          "recruiter_csv",
+          "resume_pdf"
         ]
       },
       {
         "name": "React",
-        "confidence": 0.925,
+        "confidence": 0.9750000000000001,
         "sources": [
           "ats_json",
-          "recruiter_csv"
+          "recruiter_csv",
+          "resume_pdf"
         ]
       },
       {
         "name": "PostgreSQL",
-        "confidence": 0.9,
+        "confidence": 0.9500000000000001,
         "sources": [
-          "ats_json"
+          "ats_json",
+          "resume_pdf"
         ]
       },
       {
@@ -166,6 +170,27 @@
         "confidence": 0.8,
         "sources": [
           "recruiter_csv"
+        ]
+      },
+      {
+        "name": "GraphQL",
+        "confidence": 0.75,
+        "sources": [
+          "resume_pdf"
+        ]
+      },
+      {
+        "name": "Kubernetes",
+        "confidence": 0.75,
+        "sources": [
+          "resume_pdf"
+        ]
+      },
+      {
+        "name": "Rust",
+        "confidence": 0.75,
+        "sources": [
+          "resume_pdf"
         ]
       },
       {
@@ -200,7 +225,7 @@
         "end_year": 2018
       }
     ],
-    "overall_confidence": 0.885638,
+    "overall_confidence": 0.906462,
     "provenance": [
       {
         "field": "full_name",
@@ -218,6 +243,11 @@
         "method": "github:field"
       },
       {
+        "field": "full_name",
+        "source": "resume_pdf",
+        "method": "resume:heuristic"
+      },
+      {
         "field": "emails",
         "source": "recruiter_csv",
         "method": "csv:column"
@@ -233,6 +263,11 @@
         "method": "github:field"
       },
       {
+        "field": "emails",
+        "source": "resume_pdf",
+        "method": "resume:contact"
+      },
+      {
         "field": "phones",
         "source": "recruiter_csv",
         "method": "normalize:e164"
@@ -240,6 +275,11 @@
       {
         "field": "phones",
         "source": "ats_json",
+        "method": "normalize:e164"
+      },
+      {
+        "field": "phones",
+        "source": "resume_pdf",
         "method": "normalize:e164"
       },
       {
@@ -256,6 +296,11 @@
         "field": "location",
         "source": "github_api",
         "method": "github:field"
+      },
+      {
+        "field": "location",
+        "source": "resume_pdf",
+        "method": "resume:heuristic"
       },
       {
         "field": "headline",
@@ -263,6 +308,11 @@
         "method": "github:field"
       },
       {
+        "field": "headline",
+        "source": "resume_pdf",
+        "method": "resume:heuristic"
+      },
+      {
         "field": "skills",
         "source": "recruiter_csv",
         "method": "normalize:skill-alias"
@@ -275,6 +325,11 @@
       {
         "field": "skills",
         "source": "github_api",
+        "method": "normalize:skill-alias"
+      },
+      {
+        "field": "skills",
+        "source": "resume_pdf",
         "method": "normalize:skill-alias"
       },
       {

@@ -22,6 +22,7 @@ def _inputs():
         "csv": str(fix / "recruiter.csv"),
         "ats": str(fix / "ats.json"),
         "github": str(fix / "github.json"),
+        "resume": str(fix / "resume.pdf"),
     }
 
 
@@ -46,8 +47,8 @@ def test_e2e_resolves_one_profile_per_person():
     outputs, _profiles, report = run_pipeline(
         _inputs(), DEFAULT_CONFIG, default_region="IN", as_of=date(2026, 6, 30)
     )
-    # 7 source records -> 4 resolved people (A=3, B=2, C=1, orphan=1)
-    assert report.counts["records_in"] == 7
+    # 8 source records -> 4 resolved people (A=4 incl. résumé, B=2, C=1, orphan=1)
+    assert report.counts["records_in"] == 8
     assert report.counts["profiles_out"] == 4
     names = {o["full_name"] for o in outputs}
     assert {"Aisha Khan", "Sri Krishna V", "Jordan Lee", "Pat Morgan"} == names

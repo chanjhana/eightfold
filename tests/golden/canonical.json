@@ -178,11 +178,12 @@
     "candidate_id": "cand_51d897295bf5",
     "full_name": {
       "value": "Aisha Khan",
-      "confidence": 0.9750000000000001,
+      "confidence": 1.0,
       "sources": [
         "ats_json",
         "github_api",
-        "recruiter_csv"
+        "recruiter_csv",
+        "resume_pdf"
       ],
       "provenance": [
         {
@@ -202,6 +203,12 @@
           "method": "github:field",
           "raw": "Aisha Khan",
           "value": "Aisha Khan"
+        },
+        {
+          "source": "resume_pdf",
+          "method": "resume:heuristic",
+          "raw": "Aisha Khan",
+          "value": "Aisha Khan"
         }
       ],
       "competitors": []
@@ -209,11 +216,12 @@
     "emails": [
       {
         "value": "aisha.khan@example.com",
-        "confidence": 0.9750000000000001,
+        "confidence": 1.0,
         "sources": [
           "ats_json",
           "github_api",
-          "recruiter_csv"
+          "recruiter_csv",
+          "resume_pdf"
         ],
         "provenance": [
           {
@@ -233,6 +241,12 @@
             "method": "github:field",
             "raw": "aisha.khan@example.com",
             "value": "aisha.khan@example.com"
+          },
+          {
+            "source": "resume_pdf",
+            "method": "resume:contact",
+            "raw": "aisha.khan@example.com",
+            "value": "aisha.khan@example.com"
           }
         ],
         "competitors": []
@@ -241,10 +255,11 @@
     "phones": [
       {
         "value": "+14155552671",
-        "confidence": 0.925,
+        "confidence": 0.9750000000000001,
         "sources": [
           "ats_json",
-          "recruiter_csv"
+          "recruiter_csv",
+          "resume_pdf"
         ],
         "provenance": [
           {
@@ -257,6 +272,12 @@
             "source": "ats_json",
             "method": "normalize:e164",
             "raw": "+14155552671",
+            "value": "+14155552671"
+          },
+          {
+            "source": "resume_pdf",
+            "method": "normalize:e164",
+            "raw": "+1 415 555 2671",
             "value": "+14155552671"
           }
         ],
@@ -274,11 +295,12 @@
           "country": "USA"
         }
       },
-      "confidence": 0.80925,
+      "confidence": 0.83,
       "sources": [
         "ats_json",
         "github_api",
-        "recruiter_csv"
+        "recruiter_csv",
+        "resume_pdf"
       ],
       "provenance": [
         {
@@ -327,6 +349,17 @@
             "country": "US",
             "raw": "San Francisco, USA"
           }
+        },
+        {
+          "source": "resume_pdf",
+          "method": "resume:heuristic",
+          "raw": "San Francisco, USA",
+          "value": {
+            "city": "San Francisco",
+            "region": null,
+            "country": "US",
+            "raw": "San Francisco, USA"
+          }
         }
       ],
       "competitors": []
@@ -349,10 +382,10 @@
       "competitors": []
     },
     "headline": {
-      "value": "Senior Software Engineer. Payments & infrastructure.",
-      "confidence": 0.588,
+      "value": "Senior Software Engineer",
+      "confidence": 0.6,
       "sources": [
-        "github_api"
+        "resume_pdf"
       ],
       "provenance": [
         {
@@ -360,18 +393,27 @@
           "method": "github:field",
           "raw": "Senior Software Engineer. Payments & infrastructure.",
           "value": "Senior Software Engineer. Payments & infrastructure."
+        },
+        {
+          "source": "resume_pdf",
+          "method": "resume:heuristic",
+          "raw": "Senior Software Engineer",
+          "value": "Senior Software Engineer"
         }
       ],
-      "competitors": []
+      "competitors": [
+        "Senior Software Engineer. Payments & infrastructure."
+      ]
     },
     "skills": [
       {
         "value": "Python",
-        "confidence": 0.9750000000000001,
+        "confidence": 1.0,
         "sources": [
           "ats_json",
           "github_api",
-          "recruiter_csv"
+          "recruiter_csv",
+          "resume_pdf"
         ],
         "provenance": [
           {
@@ -391,16 +433,23 @@
             "method": "normalize:skill-alias",
             "raw": "Python",
             "value": "Python"
+          },
+          {
+            "source": "resume_pdf",
+            "method": "normalize:skill-alias",
+            "raw": "Python",
+            "value": "Python"
           }
         ],
         "competitors": []
       },
       {
         "value": "Node.js",
-        "confidence": 0.925,
+        "confidence": 0.9750000000000001,
         "sources": [
           "ats_json",
-          "recruiter_csv"
+          "recruiter_csv",
+          "resume_pdf"
         ],
         "provenance": [
           {
@@ -414,16 +463,23 @@
             "method": "normalize:skill-alias",
             "raw": "Node.js",
             "value": "Node.js"
+          },
+          {
+            "source": "resume_pdf",
+            "method": "normalize:skill-alias",
+            "raw": "Node.js",
+            "value": "Node.js"
           }
         ],
         "competitors": []
       },
       {
         "value": "React",
-        "confidence": 0.925,
+        "confidence": 0.9750000000000001,
         "sources": [
           "ats_json",
-          "recruiter_csv"
+          "recruiter_csv",
+          "resume_pdf"
         ],
         "provenance": [
           {
@@ -437,19 +493,32 @@
             "method": "normalize:skill-alias",
             "raw": "React",
             "value": "React"
+          },
+          {
+            "source": "resume_pdf",
+            "method": "normalize:skill-alias",
+            "raw": "React",
+            "value": "React"
           }
         ],
         "competitors": []
       },
       {
         "value": "PostgreSQL",
-        "confidence": 0.9,
+        "confidence": 0.9500000000000001,
         "sources": [
-          "ats_json"
+          "ats_json",
+          "resume_pdf"
         ],
         "provenance": [
           {
             "source": "ats_json",
+            "method": "normalize:skill-alias",
+            "raw": "PostgreSQL",
+            "value": "PostgreSQL"
+          },
+          {
+            "source": "resume_pdf",
             "method": "normalize:skill-alias",
             "raw": "PostgreSQL",
             "value": "PostgreSQL"
@@ -501,6 +570,54 @@
             "method": "normalize:skill-alias",
             "raw": "C++",
             "value": "C++"
+          }
+        ],
+        "competitors": []
+      },
+      {
+        "value": "GraphQL",
+        "confidence": 0.75,
+        "sources": [
+          "resume_pdf"
+        ],
+        "provenance": [
+          {
+            "source": "resume_pdf",
+            "method": "normalize:skill-alias",
+            "raw": "GraphQL",
+            "value": "GraphQL"
+          }
+        ],
+        "competitors": []
+      },
+      {
+        "value": "Kubernetes",
+        "confidence": 0.75,
+        "sources": [
+          "resume_pdf"
+        ],
+        "provenance": [
+          {
+            "source": "resume_pdf",
+            "method": "normalize:skill-alias",
+            "raw": "Kubernetes",
+            "value": "Kubernetes"
+          }
+        ],
+        "competitors": []
+      },
+      {
+        "value": "Rust",
+        "confidence": 0.75,
+        "sources": [
+          "resume_pdf"
+        ],
+        "provenance": [
+          {
+            "source": "resume_pdf",
+            "method": "normalize:skill-alias",
+            "raw": "Rust",
+            "value": "Rust"
           }
         ],
         "competitors": []
@@ -780,7 +897,7 @@
       }
     ],
     "years_experience": 8.33,
-    "overall_confidence": 0.885638,
+    "overall_confidence": 0.906462,
     "flags": [
       {
         "kind": "conflict_resolved",

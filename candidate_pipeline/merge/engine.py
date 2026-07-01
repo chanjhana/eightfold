@@ -150,7 +150,7 @@ class MergeEngine:
             contribs.append(
                 Contribution(
                     r.source_name, d, r.location.raw, r.location.method,
-                    is_prose=(r.source_name == "github_api"),
+                    is_prose=(r.source_name in ("github_api", "resume_pdf")),
                     last_updated=r.last_updated,
                 )
             )

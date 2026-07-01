@@ -1,9 +1,10 @@
 # Candidate Profile Transformation Pipeline
 
-A batch pipeline that ingests candidate data from **three heterogeneous sources**,
-resolves which records belong to the **same person**, merges them into **one
-canonical profile per person** with **per-field provenance and confidence**, and
-emits output through a **runtime-configurable projection layer**.
+A batch pipeline that ingests candidate data from **four heterogeneous sources**
+(recruiter CSV, ATS JSON, GitHub, and résumé PDF), resolves which records belong
+to the **same person**, merges them into **one canonical profile per person** with
+**per-field provenance and confidence**, and emits output through a
+**runtime-configurable projection layer**.
 
 Built for the Eightfold take-home (talent-intelligence domain). The full
 specification lives in [`prd.md`](prd.md); this README covers how to run it, the
@@ -35,6 +36,7 @@ uv run candidate-pipeline transform \
   --inputs csv=candidate_pipeline/data/fixtures/recruiter.csv \
            ats=candidate_pipeline/data/fixtures/ats.json \
            github=candidate_pipeline/data/fixtures/github.json \
+           resume=candidate_pipeline/data/fixtures/resume.pdf \
   --default-region IN \
   --as-of 2026-06-30 \
   --out profiles.json \
@@ -91,11 +93,11 @@ given consumer wants it shaped."
 All tunable numbers live in exactly two places: `confidence/scorer.py` and
 `merge/trust.py`.
 
-### Sources & the GitHub "unstructured" representative
+### Sources & the unstructured representatives
 
-Two structured sources (**recruiter CSV**, **ATS JSON**) and one unstructured one
-(**GitHub**). The GitHub adapter mirrors the real REST API rather than just the
-`/users/{login}` scalar fields:
+Two structured sources (**recruiter CSV**, **ATS JSON**) and two unstructured ones
+(**GitHub**, **résumé PDF**). The GitHub adapter mirrors the real REST API rather
+than just the `/users/{login}` scalar fields:
 
 - `bio` / free-text `company` / `location` → prose-penalized fields (headline,
   company, location), as before.
@@ -113,13 +115,26 @@ REST API (`GET /users/{login}` + `/repos`), parsing the live JSON through the
 *same* `_obj_to_record` path; any failure falls back to the fixture record (logged
 to the report), so the API shape is honored without the demo ever flaking.
 
+The **résumé** adapter (`sources/resume_pdf.py`) is the second unstructured source.
+Text is extracted from a PDF via **pypdf** (or read from a `.txt` twin), then a
+deterministic, heuristic parser (`parse_resume_text`) recovers the fields we can
+get reliably: name, emails, phones, headline, location, and skills — each run
+through the *same* normalizers as every other source (methods `resume:heuristic` /
+`resume:contact`). Scope is deliberately **lean**: experience/education parsing
+stays an extension point (the parser recovers only what it's confident about and
+never fabricates). Résumé trust is **0.75** — above a GitHub bio, below the
+recruiter CSV / verified ATS. A scanned/image PDF with no extractable text is an
+honest skip, and a corrupt file is caught by the base adapter's try/except.
+The fixture PDF is generated from `resume.txt` by
+`data/fixtures/_make_resume_pdf.py` (reportlab, a dev-only dependency).
+
 ---
 
 ## Design rationale
 
 ### Trust order & conflict resolution
 Single-valued fields (name, current company/title, location) are resolved by
-**source trust**: `ATS (0.90) > recruiter CSV (0.80) > GitHub (0.70)`. The winner
+**source trust**: `ATS (0.90) > recruiter CSV (0.80) > résumé (0.75) > GitHub (0.70)`. The winner
 is kept; losing values are **retained as `competitors` in provenance**, never
 discarded. A conflict raises a `Flag(conflict_resolved)` on the profile and a
 `ConflictEntry` in the `RunReport`. Multi-valued fields (skills, emails, phones)
@@ -271,14 +286,41 @@ outputs, so the torture fixtures can evolve without brittle churn.
 
 Each cut is a deliberate judgment call; the seams to extend them already exist.
 
-- **LinkedIn / résumé / recruiter notes** — no public API / NLP-heavy; modeled as
+- **LinkedIn / recruiter notes** — no public API / NLP-heavy; modeled as
   additional `SourceAdapter`s the registry can add behind the same seam. The
   adapter interface and `link_hints` (for a LinkedIn URL) already accommodate them.
+- **Résumé experience/education** — the résumé source is implemented (lean scope:
+  identity + skills + headline + location); parsing dated experience/education
+  entries out of free-form résumé prose stays the extension point. The section-aware
+  `parse_resume_text` is where that logic would slot in.
 - **Fuzzy / embedding name matching** — the identity linker's tiered structure
   leaves a clean insertion point; alias-map + blocking is the deterministic choice
   for this scope.
-- **Embedding-based skill similarity** — production path for the long tail; the
-  alias map handles the common vocabulary deterministically today.
+- **Embedding-based skill similarity (long-tail canonicalization)** — today
+  `canonicalize_skill` (`normalize/skills.py`) is a deterministic two-step exact
+  lookup against `aliases.json`; a miss is kept verbatim at lower confidence and
+  flagged `uncanonicalized_skill`. In production the long tail (semantic variants
+  like *React Native*→React, *Postgres DB*→PostgreSQL, and typos) would be caught
+  by an **optional embedding fallback consulted only on an alias miss, immediately
+  before the verbatim fallback** — a single insertion point that automatically
+  covers every call site (`sources/base.py::_skills`, the projector's `canonical`
+  assertion) with no threading. Design intent:
+  - **Backend** — a local sentence-transformer (e.g. all-MiniLM-L6-v2) embeds the
+    alias map's canonical vocabulary once (cached) and cosine-compares an unknown
+    skill; a match ≥ a tunable `EMBEDDING_SIMILARITY_THRESHOLD` (kept with the
+    other constants in `confidence/scorer.py`) maps to that canonical name, else
+    the skill stays verbatim. Ships as an optional `[embeddings]` extra so the
+    core pipeline stays torch-free.
+  - **Deterministic & explainable, preserved** — OFF by default (a
+    `--skill-embeddings` flag / `configure_skill_embeddings()` toggle), so goldens
+    and CI are byte-identical and torch-free. A match records method
+    `normalize:skill-embedding`, keeps the canonical value (so it dedupes with
+    exact matches), but is scored as heuristic (the existing prose
+    `extraction_penalty`) and carries an auditable `Flag` such as
+    `React Native ~ React (0.87)` — never a silent rewrite.
+  - **Testing** — the wiring would be exercised with a deterministic stub resolver;
+    a real-model check guarded by `pytest.importorskip` keeps the heavy dependency
+    out of the default suite.
 - **Recency decay** — fully implemented via the `last_updated` hook; documented as
   a no-op (×1.0) when a source lacks reliable timestamps.
 

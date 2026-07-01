@@ -36,11 +36,12 @@ def test_multi_valued_skills_union_and_canonicalized(built_profiles):
     a = profiles["Aisha Khan"]
     skills = {s.value: s.confidence for s in a.skills}
     # aliases applied, C++/C#/.NET preserved intact
-    assert {"React", "Node.js", "Python", "C++", "C#", ".NET", "PostgreSQL"} <= set(skills)
-    # Python is now a 3-source skill: ATS(0.90 base) + CSV(indep 0.5 -> +0.025)
-    # + GitHub repo language (indep 1.0 -> +0.05) = 0.975. GitHub's checkout-service
-    # repo (Python, non-fork) adds the third corroborating source.
-    assert skills["Python"] == pytest.approx(0.975, abs=1e-6)
+    assert {"React", "Node.js", "Python", "C++", "C#", ".NET", "PostgreSQL", "Rust"} <= set(skills)
+    # Python is now a 4-source skill: ATS + CSV + GitHub repo + résumé. Corroboration
+    # from 3 additional agreeing sources exceeds the +0.10 cap -> 0.90 + 0.10 = 1.00.
+    assert skills["Python"] == pytest.approx(1.00, abs=1e-6)
+    # Rust comes only from the résumé (canonical alias, structured skill list) -> 0.75
+    assert skills["Rust"] == pytest.approx(0.75, abs=1e-6)
     # Go comes only from Aisha's GitHub repos (canonical alias) -> 0.70
     assert skills["Go"] == pytest.approx(0.70, abs=1e-6)
     # C++ only in CSV (canonical, structured) -> 0.80
@@ -63,6 +64,17 @@ def test_repos_surface_on_canonical_profile(built_profiles):
     # Pat Morgan's only repo is a fork -> no repos, no repo links
     pat = profiles["Pat Morgan"]
     assert pat.repos == []
+
+
+def test_resume_is_a_fourth_source_and_outranks_github_on_headline(built_profiles):
+    profiles, _ = built_profiles
+    a = profiles["Aisha Khan"]
+    # the résumé joins Aisha's cluster as a 4th source
+    assert "resume_pdf" in a.full_name.sources
+    # headline: résumé (trust 0.75) beats the GitHub bio (0.70); bio becomes a competitor
+    assert a.headline.value == "Senior Software Engineer"
+    assert a.headline.sources == ["resume_pdf"]
+    assert any("Payments" in str(c) for c in a.headline.competitors)
 
 
 def test_emails_union_confidence_sorted(built_profiles):

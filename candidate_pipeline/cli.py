@@ -86,9 +86,9 @@ def build_parser() -> argparse.ArgumentParser:
 
     t = sub.add_parser("transform", help="run the pipeline end-to-end")
     t.add_argument("--inputs", nargs="+", required=True, metavar="key=path",
-                   help="e.g. csv=recruiter.csv ats=ats.json github=github.json; "
-                        "add a :label to ingest several files of one type "
-                        "(csv:primary=a.csv csv:backfill=b.csv)")
+                   help="e.g. csv=recruiter.csv ats=ats.json github=github.json "
+                        "resume=resume.pdf; add a :label to ingest several files of "
+                        "one type (csv:primary=a.csv csv:backfill=b.csv)")
     t.add_argument("--config", default=None, help="projection config JSON (default: built-in)")
     t.add_argument("--default-region", default=None, help="ISO region for phones without a country code")
     t.add_argument("--out", default=None, help="write output JSON here")

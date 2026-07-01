@@ -7,11 +7,13 @@ from candidate_pipeline.sources.ats_json import AtsJsonAdapter
 from candidate_pipeline.sources.base import SourceAdapter
 from candidate_pipeline.sources.github_api import GithubApiAdapter
 from candidate_pipeline.sources.recruiter_csv import RecruiterCsvAdapter
+from candidate_pipeline.sources.resume_pdf import ResumePdfAdapter
 
 REGISTRY: dict[str, type[SourceAdapter]] = {
     "csv": RecruiterCsvAdapter,
     "ats": AtsJsonAdapter,
     "github": GithubApiAdapter,
+    "resume": ResumePdfAdapter,
 }
 
 

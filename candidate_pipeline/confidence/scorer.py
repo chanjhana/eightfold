@@ -14,6 +14,7 @@ from __future__ import annotations
 BASE_BY_SOURCE: dict[str, float] = {
     "ats_json": 0.90,
     "recruiter_csv": 0.80,
+    "resume_pdf": 0.75,
     "github_api": 0.70,
 }
 

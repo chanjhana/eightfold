@@ -1,0 +1,20 @@
+Aisha Khan
+Senior Software Engineer
+San Francisco, USA
+aisha.khan@example.com | +1 415 555 2671
+
+Summary
+Payments and infrastructure engineer with a focus on reliable API platforms.
+
+Technical Skills
+Python, React, Node.js, PostgreSQL, Kubernetes, GraphQL, Rust
+
+Experience
+Stripe — Senior Software Engineer (2021 - Present)
+Built and scaled the payments API platform.
+
+Shopify — Software Engineer (2018 - 2021)
+Storefront rendering and checkout.
+
+Education
+MIT — BS, Computer Science, 2018

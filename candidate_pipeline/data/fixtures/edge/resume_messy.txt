@@ -1,0 +1,5 @@
+=== CONTACT INFO ===
+   jordan.q.dev@example.com
+Skills: Go, Python, COBOL
+random junk line 12345 ###
+   no clear structure here at all
